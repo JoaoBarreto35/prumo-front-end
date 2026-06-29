@@ -15,6 +15,10 @@ import { LoginPage } from "../pages/Login";
 import { NotFoundPage } from "../pages/NotFound";
 import { PlaceholderPage } from "../pages/Placeholder";
 import { RegisterPage } from "../pages/Register";
+import { AccountsPage } from "../pages/Accounts";
+import { CategoriesPage } from "../pages/Categories";
+
+
 
 const routes: RouteObject[] = [
   {
@@ -134,21 +138,11 @@ const routes: RouteObject[] = [
           },
           {
             path: "/accounts",
-            element: (
-              <PlaceholderPage
-                title="Contas"
-                description="Organize suas formas de pagamento."
-              />
-            ),
+            element: <AccountsPage />,
           },
           {
             path: "/categories",
-            element: (
-              <PlaceholderPage
-                title="Categorias"
-                description="Organize suas classificações financeiras."
-              />
-            ),
+            element: <CategoriesPage />,
           },
           {
             path: "/lume",

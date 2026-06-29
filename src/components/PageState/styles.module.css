@@ -1,0 +1,23 @@
+.state {
+  display: grid;
+  min-height: 18rem;
+  place-content: center;
+  place-items: center;
+  gap: var(--space-3);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.state span {
+  color: var(--color-brand);
+  font-size: 2rem;
+}
+
+.state strong {
+  color: var(--color-text-primary);
+}
+
+.state p {
+  max-width: 28rem;
+  margin: 0;
+}
