@@ -1,0 +1,33 @@
+.launcher {
+    position: fixed;
+    z-index: 50;
+    right: var(--space-6);
+    bottom: var(--space-6);
+    display: grid;
+    width: 3.5rem;
+    height: 3.5rem;
+    place-items: center;
+    color: white;
+    background: var(--color-brand);
+    border: 0;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lume);
+    font-size: 1.5rem;
+    transition:
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+  
+  .launcher:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow:
+      var(--shadow-lume),
+      var(--shadow-md);
+  }
+  
+  @media (max-width: 1024px) {
+    .launcher {
+      right: var(--space-4);
+      bottom: 5.5rem;
+    }
+  }

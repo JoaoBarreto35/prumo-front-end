@@ -1,0 +1,33 @@
+.layout {
+    display: grid;
+    gap: var(--space-6);
+  }
+  
+  .header {
+    padding: var(--space-5);
+    background: var(--color-warning-soft);
+    border: 1px solid
+      color-mix(
+        in srgb,
+        var(--color-warning) 25%,
+        var(--color-border)
+      );
+    border-radius: var(--radius-lg);
+  }
+  
+  .header h1,
+  .header p {
+    margin: 0;
+  }
+  
+  .header p {
+    margin-top: var(--space-2);
+    color: var(--color-text-secondary);
+  }
+  
+  .titleRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
