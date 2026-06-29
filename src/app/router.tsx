@@ -19,6 +19,8 @@ import { AccountsPage } from "../pages/Accounts";
 import { CategoriesPage } from "../pages/Categories";
 import { TransactionsPage } from "../pages/Transactions";
 import { NewTransactionPage } from "../pages/NewTransaction";
+import { HomePage } from "../pages/Home";
+
 
 
 
@@ -87,12 +89,7 @@ const routes: RouteObject[] = [
         children: [
           {
             path: "/home",
-            element: (
-              <PlaceholderPage
-                title="Home"
-                description="Sua visão financeira do mês."
-              />
-            ),
+            element: <HomePage />,
           },
           {
             path: "/calendar",

@@ -11,10 +11,14 @@ export type TransactionStatus = "pending" | "completed" | "cancelled";
 export type Transaction = {
   id: string;
   group_id: string;
+  account_id: string;
+  category_id: string | null;
+
   transaction_type: TransactionType;
   description: string;
   amount: string;
   status: TransactionStatus;
+
   occurrence_date: string;
   due_date: string;
   sequence_number: number;
