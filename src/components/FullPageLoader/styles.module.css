@@ -1,0 +1,28 @@
+.page {
+  display: grid;
+  min-height: 100vh;
+  place-content: center;
+  place-items: center;
+  gap: var(--space-4);
+  color: var(--color-text-secondary);
+}
+
+.orb {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  color: #fff;
+  background: var(--color-brand);
+  border-radius: 50%;
+  box-shadow: var(--shadow-lume);
+  font-size: 1.5rem;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.07);
+    opacity: 0.8;
+  }
+}

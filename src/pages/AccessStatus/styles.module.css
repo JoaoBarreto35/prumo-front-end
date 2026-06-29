@@ -1,0 +1,34 @@
+.content {
+  display: grid;
+  place-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  text-align: center;
+}
+
+.content h1,
+.content p {
+  margin: 0;
+}
+
+.content p {
+  max-width: 28rem;
+  color: var(--color-text-secondary);
+}
+
+.symbol {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  color: #fff;
+  background: var(--color-brand);
+  border-radius: 50%;
+  box-shadow: var(--shadow-lume);
+  font-size: 1.5rem;
+}
+
+.homeLink {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
