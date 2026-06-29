@@ -1,0 +1,67 @@
+:root {
+  --font-family-base: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --color-bg: #f7f6f2;
+  --color-surface: #ffffff;
+  --color-surface-soft: #fbfaf7;
+  --color-border: #e8e4dc;
+  --color-border-strong: #d8d2c8;
+  --color-text-primary: #152235;
+  --color-text-secondary: #667085;
+  --color-text-muted: #98a2b3;
+  --color-sidebar: #112235;
+  --color-sidebar-soft: #1a3045;
+  --color-sidebar-text: #f6f8fa;
+  --color-sidebar-muted: #aab6c3;
+  --color-brand: #d98b00;
+  --color-brand-hover: #b76e00;
+  --color-brand-soft: #fff4d9;
+  --color-lume-glow: rgba(229, 153, 24, 0.38);
+  --color-positive: #2e9b50;
+  --color-positive-soft: #eaf7ee;
+  --color-negative: #d64545;
+  --color-negative-soft: #fdecec;
+  --color-warning: #d97706;
+  --color-warning-soft: #fff3e0;
+  --color-info: #3178c6;
+  --color-info-soft: #eaf3ff;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-pill: 999px;
+  --shadow-sm: 0 2px 8px rgba(21, 34, 53, 0.06);
+  --shadow-md: 0 8px 24px rgba(21, 34, 53, 0.08);
+  --shadow-lg: 0 16px 40px rgba(21, 34, 53, 0.12);
+  --shadow-lume: 0 0 28px rgba(229, 153, 24, 0.38);
+  --transition-fast: 120ms ease;
+  --transition-normal: 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+[data-theme="dark"] {
+  --color-bg: #0d1621;
+  --color-surface: #13202d;
+  --color-surface-soft: #182735;
+  --color-border: #26394a;
+  --color-border-strong: #365064;
+  --color-text-primary: #f5f7fa;
+  --color-text-secondary: #c2cbd4;
+  --color-text-muted: #8493a3;
+  --color-sidebar: #09121a;
+  --color-sidebar-soft: #101f2d;
+  --color-sidebar-text: #f5f7fa;
+  --color-sidebar-muted: #91a0af;
+  --color-brand-soft: rgba(217, 139, 0, 0.16);
+  --color-positive-soft: rgba(46, 155, 80, 0.16);
+  --color-negative-soft: rgba(214, 69, 69, 0.16);
+  --color-warning-soft: rgba(217, 119, 6, 0.16);
+  --color-info-soft: rgba(49, 120, 198, 0.16);
+}

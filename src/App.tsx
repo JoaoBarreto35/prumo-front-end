@@ -1,9 +1,5 @@
-function App() {
-  return (
-    <>
-      <div>This is App.tsx</div>
-    </>
-  )
-}
+import { DesignSystemPage } from "./pages/DesignSystem";
 
-export default App
+export default function App() {
+  return <DesignSystemPage />;
+}
