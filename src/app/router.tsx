@@ -20,6 +20,8 @@ import { CategoriesPage } from "../pages/Categories";
 import { TransactionsPage } from "../pages/Transactions";
 import { NewTransactionPage } from "../pages/NewTransaction";
 import { HomePage } from "../pages/Home";
+import { EditTransactionPage } from '../pages/EditTransaction';
+import { TransactionDetailsPage } from '../pages/TransactionDetails';
 
 
 
@@ -110,13 +112,13 @@ const routes: RouteObject[] = [
           },
           {
             path: "/transactions/:transactionId/edit",
-            element: (
-              <PlaceholderPage
-                title="Editar movimentação"
-                description="Atualize a movimentação selecionada."
-              />
-            ),
-          },          {
+            element: <EditTransactionPage />,
+          },
+          {
+            path: "/transactions/:transactionId",
+            element: <TransactionDetailsPage />,
+          },
+          {
             path: "/closings",
             element: (
               <PlaceholderPage

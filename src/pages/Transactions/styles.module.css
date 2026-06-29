@@ -142,3 +142,17 @@
     flex-direction: column;
   }
 }
+.transactionLink {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 12rem;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+  background: transparent;
+  border: 0;
+}
+
+.transactionLink:hover strong {
+  color: var(--color-brand);
+}

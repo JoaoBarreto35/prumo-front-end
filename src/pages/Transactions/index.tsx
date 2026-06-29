@@ -57,9 +57,9 @@ export function TransactionsPage() {
       statusFilter === "all"
         ? transactions
         : transactions.filter(
-            (transaction) =>
-              transaction.status === statusFilter,
-          ),
+          (transaction) =>
+            transaction.status === statusFilter,
+        ),
     [statusFilter, transactions],
   );
 
@@ -215,12 +215,20 @@ export function TransactionsPage() {
                   <tr key={transaction.id}>
                     <td>
                       <div className={styles.descriptionCell}>
-                        <strong>{transaction.description}</strong>
-                        <span>
-                          {transaction.transaction_type === "expense"
-                            ? "Despesa"
-                            : "Receita"}
-                        </span>
+                        <button
+                          type="button"
+                          className={styles.transactionLink}
+                          onClick={() =>
+                            navigate(`/transactions/${transaction.id}`)
+                          }
+                        >
+                          <strong>{transaction.description}</strong>
+                          <span>
+                            {transaction.transaction_type === "expense"
+                              ? "Despesa"
+                              : "Receita"}
+                          </span>
+                        </button>
                       </div>
                     </td>
 
