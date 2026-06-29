@@ -653,6 +653,9 @@ export function HomePage() {
                             ? "Receita"
                             : "Despesa"}
                         </span>
+                        <span>
+                          {transaction.sequence_number}
+                        </span>
                       </div>
                     </td>
 

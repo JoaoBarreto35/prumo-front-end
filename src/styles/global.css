@@ -42,3 +42,25 @@ a {
   outline-offset: 2px;
 }
 
+/* Largura da barra de rolagem (vertical) e altura (horizontal) */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* O fundo (track) da barra de rolagem */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* A alça/barra em si (thumb) que você vai colorir */
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-brand); /* Substitua pela cor desejada */
+  border-radius: 20px;       /* Deixa as bordas arredondadas */
+  border: 3px solid transparent; /* Cria um respiro entre a barra e o fundo */
+  background-clip: content-box;  /* Impede que a borda colorida vaze para o fundo */
+}
+
+/* Cor da barra ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-brand-hover);
+}
