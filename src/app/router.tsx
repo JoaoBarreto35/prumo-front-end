@@ -17,6 +17,8 @@ import { PlaceholderPage } from "../pages/Placeholder";
 import { RegisterPage } from "../pages/Register";
 import { AccountsPage } from "../pages/Accounts";
 import { CategoriesPage } from "../pages/Categories";
+import { TransactionsPage } from "../pages/Transactions";
+import { NewTransactionPage } from "../pages/NewTransaction";
 
 
 
@@ -103,21 +105,11 @@ const routes: RouteObject[] = [
           },
           {
             path: "/transactions",
-            element: (
-              <PlaceholderPage
-                title="Movimentações"
-                description="Pesquise e gerencie seu histórico."
-              />
-            ),
+            element: <TransactionsPage />,
           },
           {
             path: "/transactions/new",
-            element: (
-              <PlaceholderPage
-                title="Nova movimentação"
-                description="Registre uma receita ou despesa."
-              />
-            ),
+            element: <NewTransactionPage />,
           },
           {
             path: "/transactions/:transactionId/edit",
