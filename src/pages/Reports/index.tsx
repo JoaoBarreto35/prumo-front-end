@@ -45,6 +45,7 @@ import {
 import {
   formatCurrency,
 } from "../../utils/currency";
+import { PageSkeleton } from "../../components/PageSkeleton";
 
 import styles from "./styles.module.css";
 
@@ -476,12 +477,11 @@ export function ReportsPage() {
 
   if (isLoading) {
     return (
-      <Card>
-        <PageState
-          title="Preparando seus relatórios"
-          description="Analisando movimentações, contas e categorias."
-        />
-      </Card>
+      <PageSkeleton
+      cards={4}
+      rows={6}
+    />
+
     );
   }
 

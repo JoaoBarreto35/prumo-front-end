@@ -32,6 +32,7 @@ import {
   formatCurrency,
   parseCurrencyInput,
 } from "../../utils/currency";
+import { PageSkeleton } from "../../components/PageSkeleton";
 
 import styles from "./styles.module.css";
 
@@ -440,13 +441,11 @@ export function PlanningPage() {
 
   if (isLoading) {
     return (
-      <Card>
-        <PageState
-          title="Calculando seu futuro"
-          description="Carregando movimentações e cenários."
-        />
-      </Card>
-    );
+      <PageSkeleton
+        cards={4}
+        rows={6}
+      />
+    );  
   }
 
 

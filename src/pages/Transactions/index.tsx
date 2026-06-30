@@ -24,6 +24,8 @@ import type {
   Transaction,
   TransactionStatus,
 } from "../../types/transactions";
+import { PageSkeleton } from "../../components/PageSkeleton";
+
 
 import styles from "./styles.module.css";
 
@@ -413,10 +415,11 @@ export function TransactionsPage() {
         </div>
 
         {isLoading ? (
-          <PageState
-            title="Carregando movimentações"
-            description="Buscando seu histórico financeiro."
-          />
+          <PageSkeleton
+          cards={4}
+          rows={6}
+        />
+    
         ) : error ? (
           <PageState
             title="Não foi possível carregar"

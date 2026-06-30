@@ -64,3 +64,20 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-brand-hover);
 }
+:root[data-density="compact"] {
+  --space-2: 0.4rem;
+  --space-3: 0.65rem;
+  --space-4: 0.85rem;
+  --space-5: 1.1rem;
+  --space-6: 1.35rem;
+  --space-8: 1.8rem;
+}
+
+:root[data-reduce-motion="true"] *,
+:root[data-reduce-motion="true"] *::before,
+:root[data-reduce-motion="true"] *::after {
+  scroll-behavior: auto !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}

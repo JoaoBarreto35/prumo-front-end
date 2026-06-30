@@ -1,0 +1,130 @@
+/*
+  Camada final de qualidade do Prumo.
+  Importe depois de global.css.
+*/
+
+html {
+  scroll-padding-top: 5rem;
+}
+
+body {
+  min-width: 320px;
+  text-rendering:
+    optimizeLegibility;
+  -webkit-font-smoothing:
+    antialiased;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color:
+    transparent;
+}
+
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline:
+    3px solid
+    color-mix(
+      in srgb,
+      var(--color-brand) 55%,
+      transparent
+    );
+  outline-offset: 3px;
+}
+
+::selection {
+  color: #fff;
+  background: var(--color-brand);
+}
+
+.skipLink {
+  position: fixed;
+  z-index: 10000;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding:
+    0.75rem 1rem;
+  color: #fff;
+  background: var(--color-brand);
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  text-decoration: none;
+  transform:
+    translateY(-160%);
+  transition:
+    transform 160ms ease;
+}
+
+.skipLink:focus {
+  transform: translateY(0);
+}
+
+#main-content:focus {
+  outline: none;
+}
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration:
+      0.01ms !important;
+    animation-iteration-count:
+      1 !important;
+    scroll-behavior:
+      auto !important;
+    transition-duration:
+      0.01ms !important;
+  }
+}
+
+@media (max-width: 760px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  button {
+    min-height: 2.5rem;
+  }
+}
+
+@media print {
+  nav,
+  aside,
+  [data-print-hidden="true"] {
+    display: none !important;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}

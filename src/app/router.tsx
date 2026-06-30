@@ -27,6 +27,8 @@ import { PlanningPage } from "../pages/Planning";
 import { ReportsPage } from "../pages/Reports";
 import { LumePage } from "../pages/Lume";
 import { NotificationsPage } from "../pages/Notifications";
+import { SettingsPage } from "../pages/Settings";
+import { ChangeTemporaryPasswordPage } from "../pages/ChangeTemporaryPassword";
 
 const routes: RouteObject[] = [
   {
@@ -88,6 +90,10 @@ const routes: RouteObject[] = [
   {
     element: <ProtectedRoute />,
     children: [
+      {
+        path: "/change-temporary-password",
+        element: <ChangeTemporaryPasswordPage />,
+      },
       {
         element: <AppLayout />,
         children: [
@@ -154,49 +160,21 @@ const routes: RouteObject[] = [
           },
           {
             path: "/settings/profile",
-            element: (
-              <PlaceholderPage
-                title="Perfil"
-                description="Gerencie suas informações."
-              />
-            ),
+            element: <SettingsPage />,
           },
           {
             path: "/settings/preferences",
-            element: (
-              <PlaceholderPage
-                title="Preferências"
-                description="Configure o comportamento do Prumo."
-              />
-            ),
+            element: <SettingsPage />,
           },
           {
             path: "/settings/security",
-            element: (
-              <PlaceholderPage
-                title="Segurança"
-                description="Gerencie senha e sessões."
-              />
-            ),
+            element: <SettingsPage />,
           },
           {
             path: "/settings/appearance",
-            element: (
-              <PlaceholderPage
-                title="Aparência"
-                description="Personalize o visual."
-              />
-            ),
+            element: <SettingsPage />,
           },
-          {
-            path: "/change-temporary-password",
-            element: (
-              <PlaceholderPage
-                title="Trocar senha temporária"
-                description="Defina uma senha pessoal para continuar."
-              />
-            ),
-          },
+          
           {
             element: <AdminRoute />,
             children: [

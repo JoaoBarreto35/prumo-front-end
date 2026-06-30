@@ -1,25 +1,66 @@
-import { useNavigate } from "react-router";
+import {
+  useNavigate,
+} from "react-router";
 
 import { Button } from "../../components/Button";
 
 import styles from "./styles.module.css";
 
+
 export function NotFoundPage() {
   const navigate = useNavigate();
 
   return (
-    <main className={styles.page}>
-      <span className={styles.code}>404</span>
+    <main
+      className={styles.page}
+    >
+      <section
+        className={styles.card}
+      >
+        <span
+          className={styles.code}
+        >
+          404
+        </span>
 
-      <h1>Página não encontrada</h1>
+        <h1>
+          Esta página saiu do rumo
+        </h1>
 
-      <p>
-        O endereço informado não existe ou foi movido.
-      </p>
+        <p>
+          O endereço pode estar
+          incorreto ou a página foi
+          movida. Volte para a Home
+          e continue organizando sua
+          vida financeira.
+        </p>
 
-      <Button onClick={() => navigate("/home")}>
-        Voltar para a Home
-      </Button>
+        <div
+          className={styles.actions}
+        >
+          <Button
+            variant="secondary"
+            onClick={() =>
+              navigate(-1)
+            }
+          >
+            Voltar
+          </Button>
+
+          <Button
+            onClick={() =>
+              navigate(
+                "/home",
+                {
+                  replace: true,
+                },
+              )
+            }
+          >
+            Ir para a Home
+          </Button>
+        </div>
+      </section>
     </main>
   );
 }

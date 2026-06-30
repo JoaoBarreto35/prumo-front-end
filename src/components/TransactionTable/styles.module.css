@@ -153,3 +153,126 @@
     width: 100%;
   }
 }
+@media (max-width: 760px) {
+  .tableWrapper {
+    overflow: visible;
+  }
+
+  .table,
+  .table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .table tbody {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .table tbody tr {
+    display: grid;
+    overflow: hidden;
+    background: var(--color-surface);
+    border:
+      1px solid var(--color-border);
+    border-radius:
+      var(--radius-lg);
+  }
+
+  .table tbody tr:hover {
+    background: var(--color-surface);
+  }
+
+  .table td {
+    display: grid;
+    grid-template-columns:
+      minmax(6.5rem, 0.7fr)
+      minmax(0, 1.3fr);
+    align-items: center;
+    gap: var(--space-3);
+    padding:
+      var(--space-3)
+      var(--space-4);
+    white-space: normal;
+    border-bottom:
+      1px solid var(--color-border);
+  }
+
+  .table td:last-child {
+    border-bottom: 0;
+  }
+
+  .table td::before {
+    color:
+      var(--color-text-secondary);
+    font-size: 0.6875rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .table td:nth-child(1)::before {
+    content: "Descrição";
+  }
+
+  .table td:nth-child(2)::before {
+    content: "Tipo";
+  }
+
+  .table td:nth-child(3)::before {
+    content: "Conta";
+  }
+
+  .table td:nth-child(4)::before {
+    content: "Data";
+  }
+
+  .table td:nth-child(5)::before {
+    content: "Status";
+  }
+
+  .table td:nth-child(6)::before {
+    content: "Valor";
+  }
+
+  .table td:nth-child(7)::before {
+    content: "Ações";
+  }
+
+  .transactionLink {
+    min-width: 0;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+    min-width: 0;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .table td {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}
+

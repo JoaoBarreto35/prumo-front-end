@@ -26,6 +26,7 @@ import type {
 import { formatCurrency } from "../../utils/currency";
 import { PlanningPreview } from "../../components/PlanningPreview";
 import { LumeHomeCard } from "../../components/LumeHomeCard";
+import { PageSkeleton } from "../../components/PageSkeleton";
 
 import styles from "./styles.module.css";
 
@@ -532,12 +533,11 @@ export function HomePage() {
 
   if (isLoading) {
     return (
-      <Card>
-        <PageState
-          title="Organizando seu mês"
-          description="Carregando movimentações, contas e categorias."
-        />
-      </Card>
+      <PageSkeleton
+      cards={4}
+      rows={6}
+    />
+
     );
   }
 

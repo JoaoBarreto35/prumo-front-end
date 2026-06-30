@@ -21,6 +21,10 @@ const routeTitles: Record<string, string> = {
   "/settings": "Configurações",
   "/admin/users": "Administração",
   "/notifications": "Notificações",
+  "/settings/profile": "Perfil",
+"/settings/preferences": "Preferências",
+"/settings/security": "Segurança",
+"/settings/appearance": "Aparência",
 };
 
 function getPageTitle(pathname: string): string {
@@ -79,6 +83,7 @@ export function AppHeader({
           type="button"
           className={styles.profileButton}
           aria-label="Abrir menu do perfil"
+          
         >
           JB
         </button>

@@ -23,6 +23,7 @@ import type {
   TransactionStatus,
 } from "../../types/transactions";
 import { formatCurrency } from "../../utils/currency";
+import { PageSkeleton } from "../../components/PageSkeleton";
 
 import styles from "./styles.module.css";
 
@@ -576,12 +577,10 @@ export function CalendarPage() {
 
   if (isLoading) {
     return (
-      <Card>
-        <PageState
-          title="Montando seu calendário"
-          description="Organizando vencimentos, receitas e despesas."
-        />
-      </Card>
+      <PageSkeleton
+      cards={4}
+      rows={6}
+    />
     );
   }
 

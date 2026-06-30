@@ -5,6 +5,8 @@ import { AppHeader } from "../../components/AppHeader";
 import { LumeLauncher } from "../../components/LumeLauncher";
 import { MobileNavigation } from "../../components/MobileNavigation";
 import { Sidebar } from "../../components/Sidebar";
+import { PreferencesBootstrap } from "../../components/PreferencesBootstrap";
+import { RouteAnnouncer } from "../../components/RouteAnnouncer";
 
 import styles from "./styles.module.css";
 
@@ -27,29 +29,39 @@ export function AppLayout() {
   }, [isSidebarCollapsed]);
 
   return (
-    <div
-      className={[
-        styles.layout,
-        isSidebarCollapsed ? styles.sidebarCollapsed : "",
-      ]
-        .filter(Boolean)
-        .join(" ")}
-    >
-      <Sidebar
-        isCollapsed={isSidebarCollapsed}
-        onToggle={toggleSidebar}
-      />
+    <><PreferencesBootstrap />
+      <a
+  className="skipLink"
+  href="#main-content"
+>
+  Ir para o conteúdo
+</a>
 
-      <div className={styles.contentArea}>
-        <AppHeader onOpenNavigation={toggleSidebar} />
+<RouteAnnouncer />
+      <div
+        className={[
+          styles.layout,
+          isSidebarCollapsed ? styles.sidebarCollapsed : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        <Sidebar
+          isCollapsed={isSidebarCollapsed}
+          onToggle={toggleSidebar}
+        />
 
-        <main className={styles.mainContent}>
-          <Outlet />
-        </main>
+        <div className={styles.contentArea}>
+          <AppHeader onOpenNavigation={toggleSidebar} />
+
+          <main className={styles.mainContent} id="main-content">
+            <Outlet />
+          </main>
+        </div>
+
+        <MobileNavigation />
+        <LumeLauncher />
       </div>
-
-      <MobileNavigation />
-      <LumeLauncher />
-    </div>
+    </>
   );
 }

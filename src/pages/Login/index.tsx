@@ -6,6 +6,7 @@ import { Card } from "../../components/Card";
 import { Input } from "../../components/Input";
 import { useAuth } from "../../contexts/AuthContext";
 import { ApiError } from "../../services/api";
+import { settingsService } from "../../services/settingsService";
 
 import styles from "./styles.module.css";
 
@@ -47,14 +48,63 @@ export function LoginPage() {
     setIsSubmitting(true);
 
     try {
-      const user = await login({
+      const currentUser = await login({
         email,
         password,
-        device_name: navigator.userAgent,
+        device_name:
+          navigator.userAgent,
       });
-
-      const state = location.state as LocationState | null;
-      navigate(state?.from ?? "/home", { replace: true });
+      
+      const state =
+        location.state as LocationState | null;
+      
+      if (
+        currentUser.must_change_password
+      ) {
+        navigate(
+          "/change-temporary-password",
+          {
+            replace: true,
+          },
+        );
+      
+        return;
+      }
+      
+      if (
+        state?.from
+        && state.from
+          !== "/change-temporary-password"
+      ) {
+        navigate(
+          state.from,
+          {
+            replace: true,
+          },
+        );
+      
+        return;
+      }
+      
+      try {
+        const preferences =
+          await settingsService
+            .getPreferences();
+      
+        navigate(
+          preferences.default_page,
+          {
+            replace: true,
+          },
+        );
+      } catch {
+        navigate(
+          "/home",
+          {
+            replace: true,
+          },
+        );
+      }
     } catch (caughtError) {
       if (caughtError instanceof ApiError) {
         const accessStatusRoute = getAccessStatusRoute(caughtError.message);
