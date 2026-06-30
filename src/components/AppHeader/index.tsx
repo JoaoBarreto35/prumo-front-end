@@ -2,6 +2,7 @@ import { useLocation } from "react-router";
 
 import { Button } from "../Button";
 import { useTheme } from "../../contexts/ThemeContext";
+import { NotificationBell } from "../NotificationBell";
 
 import styles from "./styles.module.css";
 
@@ -19,6 +20,7 @@ const routeTitles: Record<string, string> = {
   "/lume": "Lume",
   "/settings": "Configurações",
   "/admin/users": "Administração",
+  "/notifications": "Notificações",
 };
 
 function getPageTitle(pathname: string): string {
@@ -64,6 +66,7 @@ export function AppHeader({
       </div>
 
       <div className={styles.actions}>
+        <NotificationBell />
         <Button
           variant="secondary"
           size="small"

@@ -25,6 +25,7 @@ type NavigationGroup = {
 const navigationGroups: NavigationGroup[] = [
   {
     label: "Visão financeira",
+    
     items: [
       { label: "Home", to: "/home", icon: "⌂" },
       { label: "Calendário", to: "/calendar", icon: "🗓" },
@@ -54,6 +55,11 @@ const navigationGroups: NavigationGroup[] = [
   {
     label: "Sistema",
     items: [
+      {
+        label: "Notificações",
+        to: "/notifications",
+        icon:  "🔔",
+        },
       { label: "Configurações", to: "/settings", icon: "⚙" },
       { label: "Usuários", to: "/admin/users", icon: "♙" },
     ],

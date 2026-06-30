@@ -26,7 +26,7 @@ import { CalendarPage } from '../pages/Calendar';
 import { PlanningPage } from "../pages/Planning";
 import { ReportsPage } from "../pages/Reports";
 import { LumePage } from "../pages/Lume";
-
+import { NotificationsPage } from "../pages/Notifications";
 
 const routes: RouteObject[] = [
   {
@@ -143,6 +143,10 @@ const routes: RouteObject[] = [
           {
             path: "/lume",
             element: <LumePage />,
+          },
+          {
+            path: "/notifications",
+            element: <NotificationsPage />,
           },
           {
             path: "/settings",
