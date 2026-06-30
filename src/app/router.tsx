@@ -24,6 +24,7 @@ import { EditTransactionPage } from '../pages/EditTransaction';
 import { TransactionDetailsPage } from '../pages/TransactionDetails';
 import { CalendarPage } from '../pages/Calendar';
 import { PlanningPage } from "../pages/Planning";
+import { ReportsPage } from "../pages/Reports";
 
 
 
@@ -97,6 +98,10 @@ const routes: RouteObject[] = [
           {
             path: "/calendar",
             element: <CalendarPage />,
+          },
+          {
+            path: "/reports",
+            element: <ReportsPage />,
           },
           {
             path: "/planning",

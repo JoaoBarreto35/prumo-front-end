@@ -5,7 +5,12 @@ import styles from "./styles.module.css";
 
 const navigationItems = [
   { label: "Home", to: "/home", icon: "⌂" },
-  { label: "Calendário", to: "/calendar", icon: "▦" },
+  { label: "Calendário", to: "/calendar", icon: "🗓" },
+  {
+    label: "Relatórios",
+    to: "/reports",
+    icon: "🗠",
+  },
   { label: "Planejar", to: "/planning", icon: "↗" },
   { label: "Movimentos", to: "/transactions", icon: "⇄" },
   { label: "Mais", to: "/settings", icon: "•••" },

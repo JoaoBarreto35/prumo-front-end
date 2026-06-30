@@ -27,7 +27,12 @@ const navigationGroups: NavigationGroup[] = [
     label: "Visão financeira",
     items: [
       { label: "Home", to: "/home", icon: "⌂" },
-      { label: "Calendário", to: "/calendar", icon: "▦" },
+      { label: "Calendário", to: "/calendar", icon: "🗓" },
+      {
+        label: "Relatórios",
+        to: "/reports",
+        icon: "🗠",
+      },
       { label: "Planejamento", to: "/planning", icon: "↗" },
       { label: "Movimentações", to: "/transactions", icon: "⇄" },
       { label: "Fechamentos", to: "/closings", icon: "✓" },

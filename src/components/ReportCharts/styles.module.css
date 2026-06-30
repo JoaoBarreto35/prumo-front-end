@@ -1,0 +1,240 @@
+.monthlyChart {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.chartLegend {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+}
+
+.chartLegend span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.chartLegend i {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 3px;
+}
+
+.incomeLegend {
+  background: var(--color-positive);
+}
+
+.expenseLegend {
+  background: var(--color-negative);
+}
+
+.monthlyPlot {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(5rem, 1fr)
+    );
+  gap: var(--space-3);
+  min-height: 18rem;
+  align-items: end;
+  padding-top: var(--space-4);
+  border-bottom:
+    1px solid var(--color-border);
+}
+
+.monthColumn {
+  display: grid;
+  min-width: 0;
+  justify-items: center;
+  gap: var(--space-2);
+}
+
+.barsArea {
+  display: flex;
+  width: 100%;
+  height: 12rem;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0 var(--space-2);
+  border-bottom:
+    1px dashed var(--color-border);
+}
+
+.bar {
+  width: min(1.25rem, 35%);
+  min-height: 0.25rem;
+  border-radius:
+    var(--radius-sm)
+    var(--radius-sm)
+    0 0;
+  transition:
+    height var(--transition-normal);
+}
+
+.incomeBar {
+  background: var(--color-positive);
+}
+
+.expenseBar {
+  background: var(--color-negative);
+}
+
+.monthColumn > span {
+  overflow: hidden;
+  width: 100%;
+  color: var(--color-text-secondary);
+  font-size: 0.7rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.monthColumn > strong {
+  font-size: 0.6875rem;
+  text-align: center;
+}
+
+.positive {
+  color: var(--color-positive);
+}
+
+.negative {
+  color: var(--color-negative);
+}
+
+.donutLayout {
+  display: grid;
+  grid-template-columns:
+    minmax(10rem, 14rem)
+    minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.donut {
+  display: grid;
+  width: min(100%, 13rem);
+  aspect-ratio: 1;
+  place-items: center;
+  justify-self: center;
+  border-radius: 50%;
+}
+
+.donutCenter {
+  display: grid;
+  width: 56%;
+  aspect-ratio: 1;
+  place-content: center;
+  place-items: center;
+  background: var(--color-surface);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px
+    var(--color-border);
+}
+
+.donutCenter strong {
+  font-size: 1.5rem;
+}
+
+.donutCenter span {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+}
+
+.donutLegend {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.legendItem {
+  display: grid;
+  grid-template-columns:
+    auto minmax(0, 1fr)
+    auto auto;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+}
+
+.legendItem i {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+}
+
+.legendItem span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.legendItem small {
+  min-width: 3rem;
+  color: var(--color-text-secondary);
+  text-align: right;
+}
+
+.horizontalList {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.horizontalItem {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.horizontalHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: 0.875rem;
+}
+
+.horizontalTrack {
+  height: 0.625rem;
+  overflow: hidden;
+  background: var(--color-surface-soft);
+  border-radius: var(--radius-pill);
+}
+
+.horizontalValue {
+  height: 100%;
+  background: var(--color-brand);
+  border-radius: var(--radius-pill);
+}
+
+.horizontalItem small {
+  color: var(--color-text-secondary);
+  font-size: 0.6875rem;
+}
+
+.empty {
+  display: grid;
+  min-height: 14rem;
+  place-content: center;
+  margin: 0;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .donutLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .monthlyPlot {
+    min-width: 42rem;
+  }
+
+  .monthlyChart {
+    overflow-x: auto;
+  }
+}
