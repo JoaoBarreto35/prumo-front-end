@@ -23,7 +23,7 @@ import { HomePage } from "../pages/Home";
 import { EditTransactionPage } from '../pages/EditTransaction';
 import { TransactionDetailsPage } from '../pages/TransactionDetails';
 import { CalendarPage } from '../pages/Calendar';
-
+import { PlanningPage } from "../pages/Planning";
 
 
 
@@ -97,6 +97,10 @@ const routes: RouteObject[] = [
           {
             path: "/calendar",
             element: <CalendarPage />,
+          },
+          {
+            path: "/planning",
+            element: <PlanningPage />,
           },
           {
             path: "/transactions",

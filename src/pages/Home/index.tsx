@@ -24,6 +24,7 @@ import type {
   TransactionStatus,
 } from "../../types/transactions";
 import { formatCurrency } from "../../utils/currency";
+import { PlanningPreview } from "../../components/PlanningPreview";
 
 import styles from "./styles.module.css";
 
@@ -685,6 +686,7 @@ export function HomePage() {
           styles.metricsGrid
         }
       >
+        
         <Card>
           <div className={styles.metric}>
             <span>
@@ -1013,7 +1015,7 @@ export function HomePage() {
           ) : null}
         </Card>
       </section>
-
+      <PlanningPreview />
       <Card
         title="Movimentações do mês"
         description="Edite, conclua, reabra, cancele ou exclua sem sair da Home."

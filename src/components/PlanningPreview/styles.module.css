@@ -1,0 +1,64 @@
+.content {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.loading {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.summary > div {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--color-surface-soft);
+  border-radius: var(--radius-md);
+}
+
+.summary span,
+.months span {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+}
+
+.months {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.months > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.positive {
+  color: var(--color-positive);
+}
+
+.negative {
+  color: var(--color-negative);
+}
+
+.action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 680px) {
+  .summary,
+  .months {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,373 @@
+.page {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.pageHeader h1,
+.pageHeader p {
+  margin: 0;
+}
+
+.pageHeader h1 {
+  margin-top: var(--space-1);
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+}
+
+.pageHeader p {
+  margin-top: var(--space-2);
+  color: var(--color-text-secondary);
+}
+
+.eyebrow {
+  color: var(--color-brand);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.4fr) minmax(16rem, 0.6fr);
+  align-items: end;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.controls > label,
+.field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.controls > label > span,
+.field > span {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.controls select,
+.field select,
+.field textarea {
+  width: 100%;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.controls select,
+.field select {
+  min-height: 2.75rem;
+  padding: 0 var(--space-3);
+}
+
+.field textarea {
+  padding: var(--space-3);
+  resize: vertical;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.metric {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.metric > span,
+.metric small {
+  color: var(--color-text-secondary);
+}
+
+.metric > span {
+  font-size: 0.875rem;
+}
+
+.metric strong {
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+}
+
+.metric small {
+  line-height: 1.45;
+}
+
+.verdictLine {
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.positive {
+  color: var(--color-positive);
+}
+
+.negative {
+  color: var(--color-negative);
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(20rem, 0.65fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.scenarioColumn {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.projectionList {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.projectionMonth {
+  display: grid;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.projectionMonth:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.monthHeader,
+.monthValues {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.monthHeader > span,
+.monthValues {
+  font-size: 0.8125rem;
+}
+
+.monthValues > span:first-child {
+  color: var(--color-text-secondary);
+}
+
+.balanceTrack {
+  height: 0.55rem;
+  overflow: hidden;
+  background: var(--color-surface-soft);
+  border-radius: var(--radius-pill);
+}
+
+.balancePositive,
+.balanceNegative {
+  height: 100%;
+  border-radius: var(--radius-pill);
+}
+
+.balancePositive {
+  background: var(--color-positive);
+}
+
+.balanceNegative {
+  background: var(--color-negative);
+}
+
+.scenarioList {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.scenarioItem {
+  overflow: hidden;
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.scenarioSelected {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 2px var(--color-brand-soft);
+}
+
+.scenarioSelect {
+  display: grid;
+  width: 100%;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  color: inherit;
+  text-align: left;
+  background: transparent;
+  border: 0;
+}
+
+.scenarioSelect > span {
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+}
+
+.scenarioTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.scenarioActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.analysis {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.analysis dl {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.analysis dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.analysis dl > div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.analysis dt {
+  color: var(--color-text-secondary);
+}
+
+.analysis dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 700;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: var(--space-4) var(--space-3);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table th {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.twoColumns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.checkbox input {
+  margin-top: 0.2rem;
+}
+
+.formError {
+  padding: var(--space-3);
+  color: var(--color-negative);
+  background: var(--color-negative-soft);
+  border-radius: var(--radius-md);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+@media (max-width: 1100px) {
+  .metricsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .pageHeader {
+    flex-direction: column;
+  }
+
+  .pageHeader > button {
+    width: 100%;
+  }
+
+  .controls,
+  .twoColumns {
+    grid-template-columns: 1fr;
+  }
+
+  .monthHeader,
+  .monthValues {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 560px) {
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formActions {
+    flex-direction: column-reverse;
+  }
+
+  .formActions button {
+    width: 100%;
+  }
+}
