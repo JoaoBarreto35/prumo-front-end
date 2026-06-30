@@ -10,6 +10,7 @@ import { Badge } from "../../components/Badge";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { PageState } from "../../components/PageState";
+import { TransactionTable } from "../../components/TransactionTable";
 import { accountService } from "../../services/accountService";
 import { ApiError } from "../../services/api";
 import { categoryService } from "../../services/categoryService";
@@ -26,6 +27,7 @@ import { formatCurrency } from "../../utils/currency";
 
 import styles from "./styles.module.css";
 
+
 type BreakdownItem = {
   id: string;
   label: string;
@@ -33,32 +35,63 @@ type BreakdownItem = {
   percentage: number;
 };
 
-function startOfMonth(value: Date): Date {
-  return new Date(value.getFullYear(), value.getMonth(), 1);
+
+function startOfMonth(
+  value: Date,
+): Date {
+  return new Date(
+    value.getFullYear(),
+    value.getMonth(),
+    1,
+  );
 }
 
-function endOfMonth(value: Date): Date {
-  return new Date(value.getFullYear(), value.getMonth() + 1, 0);
+
+function endOfMonth(
+  value: Date,
+): Date {
+  return new Date(
+    value.getFullYear(),
+    value.getMonth() + 1,
+    0,
+  );
 }
 
-function formatMonth(value: Date): string {
-  return new Intl.DateTimeFormat("pt-BR", {
-    month: "long",
-    year: "numeric",
-  }).format(value);
+
+function formatMonth(
+  value: Date,
+): string {
+  return new Intl.DateTimeFormat(
+    "pt-BR",
+    {
+      month: "long",
+      year: "numeric",
+    },
+  ).format(value);
 }
 
-function formatDate(value: string): string {
-  return new Intl.DateTimeFormat("pt-BR").format(
+
+function formatDate(
+  value: string,
+): string {
+  return new Intl.DateTimeFormat(
+    "pt-BR",
+  ).format(
     new Date(`${value}T12:00:00`),
   );
 }
 
-function isSameOrBeforeToday(value: string): boolean {
+
+function isSameOrBeforeToday(
+  value: string,
+): boolean {
   const today = new Date();
-  const target = new Date(`${value}T23:59:59`);
+  const target =
+    new Date(`${value}T23:59:59`);
+
   return target <= today;
 }
+
 
 function getStatusVariant(
   status: TransactionStatus,
@@ -74,262 +107,410 @@ function getStatusVariant(
   return "warning";
 }
 
+
 export function HomePage() {
   const navigate = useNavigate();
 
-  const [referenceDate, setReferenceDate] = useState(
+  const [
+    referenceDate,
+    setReferenceDate,
+  ] = useState(
     startOfMonth(new Date()),
   );
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [accounts, setAccounts] = useState<Account[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [accountFilter, setAccountFilter] = useState("all");
-  const [statusFilter, setStatusFilter] = useState<TransactionStatus | "all">(
-    "all",
-  );
-  const [breakdownMode, setBreakdownMode] =
-    useState<"category" | "account">("category");
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
 
-  const loadData = useCallback(async () => {
-    setIsLoading(true);
-    setError("");
+  const [
+    transactions,
+    setTransactions,
+  ] = useState<Transaction[]>([]);
 
-    try {
-      const [transactionsData, accountsData, categoriesData] =
-        await Promise.all([
+  const [accounts, setAccounts] =
+    useState<Account[]>([]);
+
+  const [
+    categories,
+    setCategories,
+  ] = useState<Category[]>([]);
+
+  const [
+    accountFilter,
+    setAccountFilter,
+  ] = useState("all");
+
+  const [
+    statusFilter,
+    setStatusFilter,
+  ] = useState<
+    TransactionStatus | "all"
+  >("all");
+
+  const [
+    breakdownMode,
+    setBreakdownMode,
+  ] = useState<
+    "category" | "account"
+  >("category");
+
+  const [isLoading, setIsLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState("");
+
+
+  const loadData = useCallback(
+    async () => {
+      setIsLoading(true);
+      setError("");
+
+      try {
+        const [
+          transactionsData,
+          accountsData,
+          categoriesData,
+        ] = await Promise.all([
           transactionService.listTransactions({
-            limit: 100,
+            limit: 500,
           }),
           accountService.list(),
           categoryService.list(),
         ]);
 
-      setTransactions(transactionsData);
-      setAccounts(accountsData);
-      setCategories(categoriesData);
-    } catch (caughtError) {
-      setError(
-        caughtError instanceof ApiError
-          ? caughtError.message
-          : "Não foi possível carregar a Home.",
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+        setTransactions(
+          transactionsData,
+        );
+        setAccounts(accountsData);
+        setCategories(categoriesData);
+      } catch (caughtError) {
+        setError(
+          caughtError instanceof ApiError
+            ? caughtError.message
+            : "Não foi possível carregar a Home.",
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [],
+  );
+
 
   useEffect(() => {
     void loadData();
   }, [loadData]);
 
-  const monthStart = startOfMonth(referenceDate);
-  const monthEnd = endOfMonth(referenceDate);
 
-  const monthTransactions = useMemo(
-    () =>
-      transactions.filter((transaction) => {
-        const dueDate = new Date(`${transaction.due_date}T12:00:00`);
+  const monthStart =
+    startOfMonth(referenceDate);
 
-        const belongsToMonth =
-          dueDate >= monthStart && dueDate <= monthEnd;
+  const monthEnd =
+    endOfMonth(referenceDate);
 
-        const belongsToAccount =
-          accountFilter === "all" ||
-          transaction.account_id === accountFilter;
 
-        const belongsToStatus =
-          statusFilter === "all" ||
-          transaction.status === statusFilter;
+  const monthTransactions =
+    useMemo(
+      () =>
+        transactions.filter(
+          (transaction) => {
+            const dueDate =
+              new Date(
+                `${transaction.due_date}T12:00:00`,
+              );
 
-        return (
-          belongsToMonth &&
-          belongsToAccount &&
-          belongsToStatus
-        );
-      }),
-    [
-      accountFilter,
-      monthEnd,
-      monthStart,
-      statusFilter,
-      transactions,
-    ],
-  );
+            const belongsToMonth =
+              dueDate >= monthStart
+              && dueDate <= monthEnd;
 
-  const activeTransactions = useMemo(
-    () =>
-      monthTransactions.filter(
-        (transaction) => transaction.status !== "cancelled",
-      ),
-    [monthTransactions],
-  );
+            const belongsToAccount =
+              accountFilter === "all"
+              || transaction.account_id
+                === accountFilter;
+
+            const belongsToStatus =
+              statusFilter === "all"
+              || transaction.status
+                === statusFilter;
+
+            return (
+              belongsToMonth
+              && belongsToAccount
+              && belongsToStatus
+            );
+          },
+        ),
+      [
+        accountFilter,
+        monthEnd,
+        monthStart,
+        statusFilter,
+        transactions,
+      ],
+    );
+
+
+  const activeTransactions =
+    useMemo(
+      () =>
+        monthTransactions.filter(
+          (transaction) =>
+            transaction.status
+            !== "cancelled",
+        ),
+      [monthTransactions],
+    );
+
 
   const income = useMemo(
     () =>
       activeTransactions
         .filter(
           (transaction) =>
-            transaction.transaction_type === "income",
+            transaction.transaction_type
+            === "income",
         )
         .reduce(
           (total, transaction) =>
-            total + Number(transaction.amount),
+            total
+            + Number(
+              transaction.amount,
+            ),
           0,
         ),
     [activeTransactions],
   );
+
 
   const expense = useMemo(
     () =>
       activeTransactions
         .filter(
           (transaction) =>
-            transaction.transaction_type === "expense",
+            transaction.transaction_type
+            === "expense",
         )
         .reduce(
           (total, transaction) =>
-            total + Number(transaction.amount),
+            total
+            + Number(
+              transaction.amount,
+            ),
           0,
         ),
     [activeTransactions],
   );
 
-  const completedIncome = useMemo(
-    () =>
-      activeTransactions
-        .filter(
-          (transaction) =>
-            transaction.transaction_type === "income" &&
-            transaction.status === "completed",
-        )
-        .reduce(
-          (total, transaction) =>
-            total + Number(transaction.amount),
-          0,
-        ),
-    [activeTransactions],
-  );
 
-  const completedExpense = useMemo(
-    () =>
-      activeTransactions
-        .filter(
-          (transaction) =>
-            transaction.transaction_type === "expense" &&
-            transaction.status === "completed",
-        )
-        .reduce(
-          (total, transaction) =>
-            total + Number(transaction.amount),
-          0,
-        ),
-    [activeTransactions],
-  );
+  const completedIncome =
+    useMemo(
+      () =>
+        activeTransactions
+          .filter(
+            (transaction) =>
+              transaction.transaction_type
+              === "income"
+              && transaction.status
+                === "completed",
+          )
+          .reduce(
+            (total, transaction) =>
+              total
+              + Number(
+                transaction.amount,
+              ),
+            0,
+          ),
+      [activeTransactions],
+    );
+
+
+  const completedExpense =
+    useMemo(
+      () =>
+        activeTransactions
+          .filter(
+            (transaction) =>
+              transaction.transaction_type
+              === "expense"
+              && transaction.status
+                === "completed",
+          )
+          .reduce(
+            (total, transaction) =>
+              total
+              + Number(
+                transaction.amount,
+              ),
+            0,
+          ),
+      [activeTransactions],
+    );
+
 
   const overdue = useMemo(
     () =>
       activeTransactions.filter(
         (transaction) =>
-          transaction.status === "pending" &&
-          isSameOrBeforeToday(transaction.due_date),
+          transaction.status
+          === "pending"
+          && isSameOrBeforeToday(
+            transaction.due_date,
+          ),
       ),
     [activeTransactions],
   );
+
 
   const pending = useMemo(
     () =>
       activeTransactions.filter(
         (transaction) =>
-          transaction.status === "pending",
+          transaction.status
+          === "pending",
       ),
     [activeTransactions],
   );
 
-  const result = income - expense;
-  const completedResult = completedIncome - completedExpense;
 
-  const breakdown = useMemo<BreakdownItem[]>(() => {
-    const totals = new Map<string, number>();
+  const result =
+    income - expense;
 
-    activeTransactions
-      .filter(
-        (transaction) =>
-          transaction.transaction_type === "expense",
-      )
-      .forEach((transaction) => {
-        const key =
-          breakdownMode === "category"
-            ? transaction.category_id ?? "uncategorized"
-            : transaction.account_id;
+  const completedResult =
+    completedIncome
+    - completedExpense;
 
-        totals.set(
-          key,
-          (totals.get(key) ?? 0) + Number(transaction.amount),
-        );
-      });
 
-    const getLabel = (id: string): string => {
-      if (id === "uncategorized") {
-        return "Sem categoria";
-      }
+  const breakdown =
+    useMemo<BreakdownItem[]>(
+      () => {
+        const totals =
+          new Map<string, number>();
 
-      if (breakdownMode === "category") {
-        return (
-          categories.find((category) => category.id === id)?.name ??
-          "Categoria removida"
-        );
-      }
+        activeTransactions
+          .filter(
+            (transaction) =>
+              transaction.transaction_type
+              === "expense",
+          )
+          .forEach(
+            (transaction) => {
+              const key =
+                breakdownMode
+                === "category"
+                  ? transaction.category_id
+                    ?? "uncategorized"
+                  : transaction.account_id;
 
-      return (
-        accounts.find((account) => account.id === id)?.name ??
-        "Conta removida"
-      );
-    };
+              totals.set(
+                key,
+                (
+                  totals.get(key)
+                  ?? 0
+                )
+                + Number(
+                  transaction.amount,
+                ),
+              );
+            },
+          );
 
-    const maximum = Math.max(...totals.values(), 1);
+        const getLabel = (
+          id: string,
+        ): string => {
+          if (
+            id === "uncategorized"
+          ) {
+            return "Sem categoria";
+          }
 
-    return [...totals.entries()]
-      .map(([id, value]) => ({
-        id,
-        label: getLabel(id),
-        value,
-        percentage: (value / maximum) * 100,
-      }))
-      .sort((a, b) => b.value - a.value)
-      .slice(0, 6);
-  }, [
-    accounts,
-    activeTransactions,
-    breakdownMode,
-    categories,
-  ]);
+          if (
+            breakdownMode
+            === "category"
+          ) {
+            return (
+              categories.find(
+                (category) =>
+                  category.id === id,
+              )?.name
+              ?? "Categoria removida"
+            );
+          }
 
-  const nextTransactions = useMemo(
-    () =>
-      [...activeTransactions]
-        .filter(
-          (transaction) =>
-            transaction.status === "pending",
-        )
-        .sort((a, b) =>
-          a.due_date.localeCompare(b.due_date),
-        )
-        .slice(0, 8),
-    [activeTransactions],
-  );
+          return (
+            accounts.find(
+              (account) =>
+                account.id === id,
+            )?.name
+            ?? "Conta removida"
+          );
+        };
 
-  function changeMonth(offset: number) {
+        const maximum =
+          Math.max(
+            ...totals.values(),
+            1,
+          );
+
+        return [
+          ...totals.entries(),
+        ]
+          .map(
+            ([id, value]) => ({
+              id,
+              label: getLabel(id),
+              value,
+              percentage:
+                (value / maximum)
+                * 100,
+            }),
+          )
+          .sort(
+            (a, b) =>
+              b.value - a.value,
+          )
+          .slice(0, 6);
+      },
+      [
+        accounts,
+        activeTransactions,
+        breakdownMode,
+        categories,
+      ],
+    );
+
+
+  const nextTransactions =
+    useMemo(
+      () =>
+        [...activeTransactions]
+          .filter(
+            (transaction) =>
+              transaction.status
+              === "pending",
+          )
+          .sort(
+            (a, b) =>
+              a.due_date.localeCompare(
+                b.due_date,
+              ),
+          )
+          .slice(0, 8),
+      [activeTransactions],
+    );
+
+
+  function changeMonth(
+    offset: number,
+  ) {
     setReferenceDate(
       (current) =>
         new Date(
           current.getFullYear(),
-          current.getMonth() + offset,
+          current.getMonth()
+          + offset,
           1,
         ),
     );
   }
+
 
   if (isLoading) {
     return (
@@ -342,6 +523,7 @@ export function HomePage() {
     );
   }
 
+
   if (error) {
     return (
       <Card>
@@ -349,43 +531,76 @@ export function HomePage() {
           title="Não foi possível carregar a Home"
           description={error}
           actionLabel="Tentar novamente"
-          onAction={() => void loadData()}
+          onAction={() =>
+            void loadData()
+          }
         />
       </Card>
     );
   }
 
+
   return (
     <div className={styles.page}>
-      <header className={styles.pageHeader}>
+      <header
+        className={styles.pageHeader}
+      >
         <div>
-          <span className={styles.eyebrow}>Visão financeira</span>
-          <h1>Seu mês em equilíbrio</h1>
+          <span className={styles.eyebrow}>
+            Visão financeira
+          </span>
+
+          <h1>
+            Seu mês em equilíbrio
+          </h1>
+
           <p>
-            Acompanhe o que entra, o que sai e o que ainda precisa de atenção.
+            Acompanhe o que entra,
+            o que sai e o que ainda
+            precisa de atenção.
           </p>
         </div>
 
-        <Button onClick={() => navigate("/transactions/new")}>
+        <Button
+          onClick={() =>
+            navigate(
+              "/transactions/new",
+            )
+          }
+        >
           Nova movimentação
         </Button>
       </header>
 
-      <section className={styles.controls}>
-        <div className={styles.monthSelector}>
+      <section
+        className={styles.controls}
+      >
+        <div
+          className={
+            styles.monthSelector
+          }
+        >
           <button
             type="button"
-            onClick={() => changeMonth(-1)}
+            onClick={() =>
+              changeMonth(-1)
+            }
             aria-label="Mês anterior"
           >
             ‹
           </button>
 
-          <strong>{formatMonth(referenceDate)}</strong>
+          <strong>
+            {formatMonth(
+              referenceDate,
+            )}
+          </strong>
 
           <button
             type="button"
-            onClick={() => changeMonth(1)}
+            onClick={() =>
+              changeMonth(1)
+            }
             aria-label="Próximo mês"
           >
             ›
@@ -395,23 +610,35 @@ export function HomePage() {
         <div className={styles.filters}>
           <label>
             <span>Conta</span>
+
             <select
               value={accountFilter}
               onChange={(event) =>
-                setAccountFilter(event.target.value)
+                setAccountFilter(
+                  event.target.value,
+                )
               }
             >
-              <option value="all">Todas as contas</option>
-              {accounts.map((account) => (
-                <option key={account.id} value={account.id}>
-                  {account.name}
-                </option>
-              ))}
+              <option value="all">
+                Todas as contas
+              </option>
+
+              {accounts.map(
+                (account) => (
+                  <option
+                    key={account.id}
+                    value={account.id}
+                  >
+                    {account.name}
+                  </option>
+                ),
+              )}
             </select>
           </label>
 
           <label>
             <span>Status</span>
+
             <select
               value={statusFilter}
               onChange={(event) =>
@@ -420,52 +647,91 @@ export function HomePage() {
                 )
               }
             >
-              <option value="all">Todos</option>
-              <option value="pending">Pendentes</option>
-              <option value="completed">Concluídas</option>
-              <option value="cancelled">Canceladas</option>
+              <option value="all">
+                Todos
+              </option>
+              <option value="pending">
+                Pendentes
+              </option>
+              <option value="completed">
+                Concluídas
+              </option>
+              <option value="cancelled">
+                Canceladas
+              </option>
             </select>
           </label>
         </div>
       </section>
 
-      <section className={styles.metricsGrid}>
+      <section
+        className={
+          styles.metricsGrid
+        }
+      >
         <Card>
           <div className={styles.metric}>
-            <span>Receitas previstas</span>
-            <strong className={styles.income}>
+            <span>
+              Receitas previstas
+            </span>
+
+            <strong
+              className={styles.income}
+            >
               {formatCurrency(income)}
             </strong>
+
             <small>
-              {formatCurrency(completedIncome)} concluídos
+              {formatCurrency(
+                completedIncome,
+              )}{" "}
+              concluídos
             </small>
           </div>
         </Card>
 
         <Card>
           <div className={styles.metric}>
-            <span>Despesas previstas</span>
-            <strong className={styles.expense}>
+            <span>
+              Despesas previstas
+            </span>
+
+            <strong
+              className={styles.expense}
+            >
               {formatCurrency(expense)}
             </strong>
+
             <small>
-              {formatCurrency(completedExpense)} concluídos
+              {formatCurrency(
+                completedExpense,
+              )}{" "}
+              concluídos
             </small>
           </div>
         </Card>
 
         <Card>
           <div className={styles.metric}>
-            <span>Resultado previsto</span>
+            <span>
+              Resultado previsto
+            </span>
+
             <strong
               className={
-                result >= 0 ? styles.income : styles.expense
+                result >= 0
+                  ? styles.income
+                  : styles.expense
               }
             >
               {formatCurrency(result)}
             </strong>
+
             <small>
-              Resultado realizado: {formatCurrency(completedResult)}
+              Resultado realizado:{" "}
+              {formatCurrency(
+                completedResult,
+              )}
             </small>
           </div>
         </Card>
@@ -473,8 +739,15 @@ export function HomePage() {
         <Card>
           <div className={styles.metric}>
             <span>Pendências</span>
-            <strong>{pending.length}</strong>
-            <small>{overdue.length} vencidas ou vencendo hoje</small>
+
+            <strong>
+              {pending.length}
+            </strong>
+
+            <small>
+              {overdue.length} vencidas
+              ou vencendo hoje
+            </small>
           </div>
         </Card>
       </section>
@@ -483,39 +756,69 @@ export function HomePage() {
         <section className={styles.alert}>
           <div>
             <strong>
-              {overdue.length} movimentação
-              {overdue.length > 1 ? "ões" : ""} precisa
-              {overdue.length === 1 ? "" : "m"} de atenção
+              {overdue.length}{" "}
+              movimentação
+              {overdue.length > 1
+                ? "ões"
+                : ""}{" "}
+              precisa
+              {overdue.length === 1
+                ? ""
+                : "m"}{" "}
+              de atenção
             </strong>
+
             <p>
-              Existem valores pendentes com data prevista até hoje.
+              Existem valores pendentes
+              com data prevista até hoje.
             </p>
           </div>
 
           <Button
             variant="secondary"
-            onClick={() => navigate("/transactions")}
+            onClick={() =>
+              navigate(
+                "/transactions",
+              )
+            }
           >
             Ver movimentações
           </Button>
         </section>
       ) : null}
 
-      <section className={styles.contentGrid}>
+      <section
+        className={
+          styles.contentGrid
+        }
+      >
         <Card
           title="Despesas do mês"
           description="Veja onde o dinheiro está concentrado."
         >
-          <div className={styles.breakdownHeader}>
-            <div className={styles.breakdownTabs}>
+          <div
+            className={
+              styles.breakdownHeader
+            }
+          >
+            <div
+              className={
+                styles.breakdownTabs
+              }
+            >
               <button
                 type="button"
                 className={
-                  breakdownMode === "category"
+                  breakdownMode
+                  === "category"
                     ? styles.tabActive
                     : ""
                 }
-                onClick={() => setBreakdownMode("category")}
+                onClick={() =>
+                  setBreakdownMode(
+                    "category",
+                  )
+                }
               >
                 Categorias
               </button>
@@ -523,11 +826,16 @@ export function HomePage() {
               <button
                 type="button"
                 className={
-                  breakdownMode === "account"
+                  breakdownMode
+                  === "account"
                     ? styles.tabActive
                     : ""
                 }
-                onClick={() => setBreakdownMode("account")}
+                onClick={() =>
+                  setBreakdownMode(
+                    "account",
+                  )
+                }
               >
                 Contas
               </button>
@@ -540,22 +848,53 @@ export function HomePage() {
               description="Os gastos aparecerão aqui quando forem registrados."
             />
           ) : (
-            <div className={styles.breakdownList}>
-              {breakdown.map((item) => (
-                <div className={styles.breakdownItem} key={item.id}>
-                  <div className={styles.breakdownLabel}>
-                    <span>{item.label}</span>
-                    <strong>{formatCurrency(item.value)}</strong>
-                  </div>
-
-                  <div className={styles.barTrack}>
+            <div
+              className={
+                styles.breakdownList
+              }
+            >
+              {breakdown.map(
+                (item) => (
+                  <div
+                    className={
+                      styles.breakdownItem
+                    }
+                    key={item.id}
+                  >
                     <div
-                      className={styles.barValue}
-                      style={{ width: `${item.percentage}%` }}
-                    />
+                      className={
+                        styles.breakdownLabel
+                      }
+                    >
+                      <span>
+                        {item.label}
+                      </span>
+
+                      <strong>
+                        {formatCurrency(
+                          item.value,
+                        )}
+                      </strong>
+                    </div>
+
+                    <div
+                      className={
+                        styles.barTrack
+                      }
+                    >
+                      <div
+                        className={
+                          styles.barValue
+                        }
+                        style={{
+                          width:
+                            `${item.percentage}%`,
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           )}
         </Card>
@@ -564,53 +903,93 @@ export function HomePage() {
           title="Próximos compromissos"
           description="Pendências ordenadas pela data prevista."
         >
-          {nextTransactions.length === 0 ? (
+          {nextTransactions.length
+          === 0 ? (
             <PageState
               title="Nenhuma pendência"
               description="Seu mês está sem compromissos pendentes."
             />
           ) : (
-            <div className={styles.upcomingList}>
-              {nextTransactions.map((transaction) => (
-                <article
-                  className={styles.upcomingItem}
-                  key={transaction.id}
-                >
-                  <div>
-                    <strong>{transaction.description}</strong>
-                    <span>{formatDate(transaction.due_date)}</span>
-                  </div>
+            <div
+              className={
+                styles.upcomingList
+              }
+            >
+              {nextTransactions.map(
+                (transaction) => (
+                  <article
+                    className={
+                      styles.upcomingItem
+                    }
+                    key={transaction.id}
+                  >
+                    <div>
+                      <strong>
+                        {
+                          transaction.description
+                        }
+                      </strong>
 
-                  <div className={styles.upcomingValue}>
-                    <strong
+                      <span>
+                        {formatDate(
+                          transaction.due_date,
+                        )}
+                      </span>
+                    </div>
+
+                    <div
                       className={
-                        transaction.transaction_type === "income"
-                          ? styles.income
-                          : styles.expense
+                        styles.upcomingValue
                       }
                     >
-                      {transaction.transaction_type === "income"
-                        ? "+ "
-                        : "− "}
-                      {formatCurrency(transaction.amount)}
-                    </strong>
+                      <strong
+                        className={
+                          transaction.transaction_type
+                          === "income"
+                            ? styles.income
+                            : styles.expense
+                        }
+                      >
+                        {transaction.transaction_type
+                        === "income"
+                          ? "+ "
+                          : "− "}
 
-                    <Badge
-                      variant={getStatusVariant(transaction.status)}
-                    >
-                      Pendente
-                    </Badge>
-                  </div>
-                </article>
-              ))}
+                        {formatCurrency(
+                          transaction.amount,
+                        )}
+                      </strong>
+
+                      <Badge
+                        variant={
+                          getStatusVariant(
+                            transaction.status,
+                          )
+                        }
+                      >
+                        Pendente
+                      </Badge>
+                    </div>
+                  </article>
+                ),
+              )}
             </div>
           )}
 
-          {nextTransactions.length > 0 ? (
-            <div className={styles.cardAction}>
+          {nextTransactions.length
+          > 0 ? (
+            <div
+              className={
+                styles.cardAction
+              }
+            >
               <Button
                 variant="tertiary"
-                onClick={() => navigate("/transactions")}
+                onClick={() =>
+                  navigate(
+                    "/transactions",
+                  )
+                }
               >
                 Ver todas
               </Button>
@@ -621,75 +1000,27 @@ export function HomePage() {
 
       <Card
         title="Movimentações do mês"
-        description="Resumo dos lançamentos do período selecionado."
+        description="Edite, conclua, reabra, cancele ou exclua sem sair da Home."
       >
-        {monthTransactions.length === 0 ? (
+        {monthTransactions.length
+        === 0 ? (
           <PageState
             title="Nenhuma movimentação"
             description="Registre uma receita ou despesa para começar."
             actionLabel="Nova movimentação"
-            onAction={() => navigate("/transactions/new")}
+            onAction={() =>
+              navigate(
+                "/transactions/new",
+              )
+            }
           />
         ) : (
-          <div className={styles.tableWrapper}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Descrição</th>
-                  <th>Data</th>
-                  <th>Status</th>
-                  <th>Valor</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {monthTransactions.slice(0, 10).map((transaction) => (
-                  <tr key={transaction.id}>
-                    <td>
-                      <div className={styles.descriptionCell}>
-                        <strong>{transaction.description}</strong>
-                        <span>
-                          {transaction.transaction_type === "income"
-                            ? "Receita"
-                            : "Despesa"}
-                        </span>
-                        <span>
-                          {transaction.sequence_number}
-                        </span>
-                      </div>
-                    </td>
-
-                    <td>{formatDate(transaction.due_date)}</td>
-
-                    <td>
-                      <Badge
-                        variant={getStatusVariant(transaction.status)}
-                      >
-                        {transaction.status === "completed"
-                          ? "Concluída"
-                          : transaction.status === "cancelled"
-                            ? "Cancelada"
-                            : "Pendente"}
-                      </Badge>
-                    </td>
-
-                    <td
-                      className={
-                        transaction.transaction_type === "income"
-                          ? styles.income
-                          : styles.expense
-                      }
-                    >
-                      {transaction.transaction_type === "income"
-                        ? "+ "
-                        : "− "}
-                      {formatCurrency(transaction.amount)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <TransactionTable
+            transactions={
+              monthTransactions
+            }
+            onChanged={loadData}
+          />
         )}
       </Card>
     </div>

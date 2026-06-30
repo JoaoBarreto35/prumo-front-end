@@ -3,12 +3,27 @@ import type {
   Category,
 } from "./finance";
 
-export type TransactionType = "income" | "expense";
-export type GroupType = "single" | "installment" | "recurring";
-export type TransactionOrigin = "manual" | "ai";
-export type TransactionStatus = "pending" | "completed" | "cancelled";
 
-export type Transaction = {
+export type TransactionType =
+  | "income"
+  | "expense";
+
+export type GroupType =
+  | "single"
+  | "installment"
+  | "recurring";
+
+export type TransactionOrigin =
+  | "manual"
+  | "ai";
+
+export type TransactionStatus =
+  | "pending"
+  | "completed"
+  | "cancelled";
+
+
+export type TransactionSummary = {
   id: string;
   group_id: string;
   account_id: string;
@@ -24,6 +39,24 @@ export type Transaction = {
   sequence_number: number;
 };
 
+
+export type Transaction =
+  TransactionSummary & {
+    account_name: string;
+    category_name: string | null;
+
+    group_type: GroupType;
+    total_occurrences: number;
+    is_group_active: boolean;
+  };
+
+
+export type TransactionStatusResult = {
+  id: string;
+  status: TransactionStatus;
+};
+
+
 export type TransactionGroup = {
   id: string;
   group_type: GroupType;
@@ -34,8 +67,9 @@ export type TransactionGroup = {
   occurrence_count: number | null;
   start_date: string;
   is_active: boolean;
-  transactions: Transaction[];
+  transactions: TransactionSummary[];
 };
+
 
 export type TransactionGroupCreateInput = {
   group_type: GroupType;
@@ -51,6 +85,7 @@ export type TransactionGroupCreateInput = {
   is_indefinite: boolean;
   origin: TransactionOrigin;
 };
+
 
 export type TransactionFormDependencies = {
   accounts: Account[];
