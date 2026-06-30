@@ -1,0 +1,46 @@
+.warning {
+  display: grid;
+  grid-template-columns:
+    auto minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-4);
+  color:
+    var(--color-warning-strong);
+  background:
+    var(--color-warning-soft);
+  border:
+    1px solid
+    color-mix(
+      in srgb,
+      var(--color-warning)
+        45%,
+      transparent
+    );
+  border-radius:
+    var(--radius-lg);
+}
+
+.warning > span {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  color: #fff;
+  background:
+    var(--color-warning);
+  border-radius: 50%;
+  font-weight: 900;
+}
+
+.warning > div {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.warning p {
+  margin: 0;
+  color:
+    var(--color-text-secondary);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}

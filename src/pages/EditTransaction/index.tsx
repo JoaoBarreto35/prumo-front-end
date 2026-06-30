@@ -30,6 +30,7 @@ import {
   formatCurrency,
   parseCurrencyInput,
 } from "../../utils/currency";
+import { ClosedMonthWarning } from "../../components/ClosedMonthWarning";
 
 import styles from "./styles.module.css";
 
@@ -245,7 +246,9 @@ export function EditTransactionPage() {
           Cancelar
         </Button>
       </header>
-
+      <ClosedMonthWarning
+        referenceDate={form.dueDate}
+      />
       <form className={styles.layout} onSubmit={handleSubmit}>
         <div className={styles.main}>
           {transaction.group_type !== "single" ? (

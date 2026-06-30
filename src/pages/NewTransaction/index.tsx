@@ -28,6 +28,7 @@ import {
   formatCurrency,
   parseCurrencyInput,
 } from "../../utils/currency";
+import { ClosedMonthWarning } from "../../components/ClosedMonthWarning";
 
 import styles from "./styles.module.css";
 
@@ -371,7 +372,9 @@ export function NewTransactionPage() {
           Cancelar
         </Button>
       </header>
-
+      <ClosedMonthWarning
+        referenceDate={form.startDate}
+      />
       <form className={styles.layout} onSubmit={handleSubmit}>
         <div className={styles.mainColumn}>
           <Card

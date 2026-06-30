@@ -29,6 +29,7 @@ import { LumePage } from "../pages/Lume";
 import { NotificationsPage } from "../pages/Notifications";
 import { SettingsPage } from "../pages/Settings";
 import { ChangeTemporaryPasswordPage } from "../pages/ChangeTemporaryPassword";
+import { ClosingsPage } from "../pages/Closings";
 
 const routes: RouteObject[] = [
   {
@@ -131,12 +132,7 @@ const routes: RouteObject[] = [
           },
           {
             path: "/closings",
-            element: (
-              <PlaceholderPage
-                title="Fechamentos"
-                description="Gerencie os fechamentos mensais."
-              />
-            ),
+            element: <ClosingsPage />,
           },
           {
             path: "/accounts",
