@@ -5,7 +5,7 @@ import {
   useState,
   type FormEvent,
 } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
@@ -31,6 +31,12 @@ import {
 
 import styles from "./styles.module.css";
 
+type NewTransactionLocationState = {
+  initialDate?: string;
+  returnTo?: string;
+};
+
+
 type FormState = {
   transactionType: TransactionType;
   groupType: GroupType;
@@ -46,7 +52,20 @@ type FormState = {
 };
 
 function getToday(): string {
-  return new Date().toISOString().slice(0, 10);
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+
+function isDateKey(value: unknown): value is string {
+  return (
+    typeof value === "string" &&
+    /^\d{4}-\d{2}-\d{2}$/.test(value)
+  );
 }
 
 const initialForm: FormState = {
@@ -71,10 +90,19 @@ const groupTypeLabels: Record<GroupType, string> = {
 
 export function NewTransactionPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const locationState =
+    location.state as NewTransactionLocationState | null;
+  const returnTo = locationState?.returnTo ?? "/transactions";
 
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [form, setForm] = useState<FormState>(initialForm);
+  const [form, setForm] = useState<FormState>(() => ({
+    ...initialForm,
+    startDate: isDateKey(locationState?.initialDate)
+      ? locationState.initialDate
+      : getToday(),
+  }));
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState("");
@@ -270,10 +298,11 @@ export function NewTransactionPage() {
 
     try {
       await transactionService.createGroup(payload);
-      navigate("/transactions", {
+      navigate(returnTo, {
         replace: true,
         state: {
           successMessage: "Movimentação criada com sucesso.",
+          selectedDate: form.startDate,
         },
       });
     } catch (caughtError) {
@@ -337,7 +366,7 @@ export function NewTransactionPage() {
 
         <Button
           variant="secondary"
-          onClick={() => navigate("/transactions")}
+          onClick={() => navigate(returnTo)}
         >
           Cancelar
         </Button>

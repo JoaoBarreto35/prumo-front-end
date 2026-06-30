@@ -22,6 +22,7 @@ import { NewTransactionPage } from "../pages/NewTransaction";
 import { HomePage } from "../pages/Home";
 import { EditTransactionPage } from '../pages/EditTransaction';
 import { TransactionDetailsPage } from '../pages/TransactionDetails';
+import { CalendarPage } from '../pages/Calendar';
 
 
 
@@ -95,12 +96,7 @@ const routes: RouteObject[] = [
           },
           {
             path: "/calendar",
-            element: (
-              <PlaceholderPage
-                title="Calendário"
-                description="Acompanhe receitas, despesas e pendências."
-              />
-            ),
+            element: <CalendarPage />,
           },
           {
             path: "/transactions",

@@ -477,24 +477,40 @@ export function HomePage() {
     );
 
 
-  const nextTransactions =
-    useMemo(
-      () =>
-        [...activeTransactions]
-          .filter(
-            (transaction) =>
-              transaction.status
-              === "pending",
-          )
-          .sort(
-            (a, b) =>
-              a.due_date.localeCompare(
-                b.due_date,
-              ),
-          )
-          .slice(0, 8),
-      [activeTransactions],
-    );
+  const nextSevenDays = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const limitDate = new Date(today);
+    limitDate.setDate(limitDate.getDate() + 7);
+
+    return transactions
+      .filter((transaction) => {
+        const dueDate = new Date(
+          `${transaction.due_date}T12:00:00`,
+        );
+
+        const belongsToAccount =
+          accountFilter === "all" ||
+          transaction.account_id === accountFilter;
+
+        const belongsToStatus =
+          statusFilter === "all" ||
+          transaction.status === statusFilter;
+
+        return (
+          transaction.status === "pending" &&
+          dueDate >= today &&
+          dueDate <= limitDate &&
+          belongsToAccount &&
+          belongsToStatus
+        );
+      })
+      .sort((first, second) =>
+        first.due_date.localeCompare(second.due_date),
+      )
+      .slice(0, 8);
+  }, [accountFilter, statusFilter, transactions]);
 
 
   function changeMonth(
@@ -900,14 +916,14 @@ export function HomePage() {
         </Card>
 
         <Card
-          title="Próximos compromissos"
-          description="Pendências ordenadas pela data prevista."
+          title="Próximos 7 dias"
+          description="Compromissos pendentes que estão chegando."
         >
-          {nextTransactions.length
+          {nextSevenDays.length
           === 0 ? (
             <PageState
               title="Nenhuma pendência"
-              description="Seu mês está sem compromissos pendentes."
+              description="Não há compromissos pendentes para os próximos sete dias."
             />
           ) : (
             <div
@@ -915,7 +931,7 @@ export function HomePage() {
                 styles.upcomingList
               }
             >
-              {nextTransactions.map(
+              {nextSevenDays.map(
                 (transaction) => (
                   <article
                     className={
@@ -976,7 +992,7 @@ export function HomePage() {
             </div>
           )}
 
-          {nextTransactions.length
+          {nextSevenDays.length
           > 0 ? (
             <div
               className={
@@ -987,11 +1003,11 @@ export function HomePage() {
                 variant="tertiary"
                 onClick={() =>
                   navigate(
-                    "/transactions",
+                    "/calendar",
                   )
                 }
               >
-                Ver todas
+                Abrir calendário
               </Button>
             </div>
           ) : null}
