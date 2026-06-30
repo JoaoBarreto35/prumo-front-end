@@ -20,7 +20,7 @@ const navigationItems = [
   {
     label: "Calendário",
     to: "/calendar",
-    icon: "▦",
+    icon: "🗓",
   },
   {
     label: "Movimentos",

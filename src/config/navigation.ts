@@ -30,12 +30,12 @@ export const navigationGroups:
         {
           label: "Calendário",
           to: "/calendar",
-          icon: "▦",
+          icon: "🗓",
         },
         {
           label: "Relatórios",
           to: "/reports",
-          icon: "▥",
+          icon: "🗠",
         },
         {
           label: "Planejamento",
