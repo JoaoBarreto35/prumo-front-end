@@ -6,6 +6,9 @@ import {
 } from "react";
 
 import {
+  ReportsMobile,
+} from "../../components/ReportsMobile";
+import {
   ExpenseDonutChart,
   HorizontalAmountChart,
   MonthlyComparisonChart,
@@ -13,6 +16,7 @@ import {
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { PageState } from "../../components/PageState";
+import { PageSkeleton } from "../../components/PageSkeleton";
 import { accountService } from "../../services/accountService";
 import { ApiError } from "../../services/api";
 import { categoryService } from "../../services/categoryService";
@@ -45,7 +49,9 @@ import {
 import {
   formatCurrency,
 } from "../../utils/currency";
-import { PageSkeleton } from "../../components/PageSkeleton";
+import {
+  useMediaQuery,
+} from "../../hooks/useMediaQuery";
 
 import styles from "./styles.module.css";
 
@@ -209,6 +215,11 @@ export function ReportsPage() {
 
   const [error, setError] =
     useState("");
+
+  const isMobile =
+    useMediaQuery(
+      "(max-width: 720px)",
+    );
 
 
   const loadData = useCallback(
@@ -478,10 +489,9 @@ export function ReportsPage() {
   if (isLoading) {
     return (
       <PageSkeleton
-      cards={4}
-      rows={6}
-    />
-
+        cards={4}
+        rows={6}
+      />
     );
   }
 
@@ -520,6 +530,65 @@ export function ReportsPage() {
       balanceComparison
         .percentageChange,
     );
+
+
+  if (isMobile) {
+    return (
+      <ReportsMobile
+        accounts={accounts}
+        categories={categories}
+        preset={preset}
+        customStart={customStart}
+        customEnd={customEnd}
+        filters={filters}
+        range={range}
+        summary={summary}
+        previousIncomeChange={
+          incomeComparison
+            .percentageChange
+        }
+        previousExpenseChange={
+          expenseComparison
+            .percentageChange
+        }
+        previousBalanceChange={
+          balanceComparison
+            .percentageChange
+        }
+        monthlySeries={
+          monthlySeries
+        }
+        categoryTotals={
+          categoryTotals
+        }
+        accountTotals={
+          accountTotals
+        }
+        groupTypeTotals={
+          groupTypeTotals
+        }
+        topExpenses={topExpenses}
+        transactions={
+          filteredTransactions
+        }
+        hasFilters={hasFilters}
+        onPresetChange={setPreset}
+        onCustomStartChange={
+          setCustomStart
+        }
+        onCustomEndChange={
+          setCustomEnd
+        }
+        onFilterChange={
+          updateFilter
+        }
+        onResetFilters={
+          resetFilters
+        }
+        onExportCsv={exportCsv}
+      />
+    );
+  }
 
 
   return (

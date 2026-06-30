@@ -24,6 +24,7 @@ import type {
 } from "../../types/transactions";
 import { formatCurrency } from "../../utils/currency";
 import { PageSkeleton } from "../../components/PageSkeleton";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 import styles from "./styles.module.css";
 
@@ -284,6 +285,9 @@ function buildAgendaDays(
 export function CalendarPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const isMobile = useMediaQuery(
+    "(max-width: 760px)",
+  );
   const locationState =
     location.state as CalendarLocationState | null;
 
@@ -299,8 +303,14 @@ export function CalendarPage() {
   const [selectedDate, setSelectedDate] = useState(
     initialSelectedDate,
   );
-  const [view, setView] = useState<CalendarView>(
-    "calendar",
+  const [view, setView] =
+  useState<CalendarView>(
+    () =>
+      window.matchMedia(
+        "(max-width: 760px)",
+      ).matches
+        ? "agenda"
+        : "calendar",
   );
   const [transactions, setTransactions] = useState<
     Transaction[]
@@ -379,6 +389,18 @@ export function CalendarPage() {
       () => setSuccessMessage(""),
       4500,
     );
+    useEffect(() => {
+      if (
+        isMobile
+        && view === "calendar"
+      ) {
+        setView("agenda");
+      }
+    }, [
+      isMobile,
+      view,
+    ]);
+    
 
     return () => window.clearTimeout(timeoutId);
   }, [successMessage]);
@@ -658,8 +680,8 @@ export function CalendarPage() {
             type="button"
             className={
               view === "calendar"
-                ? styles.viewActive
-                : ""
+                ? `${styles.calendarViewButton} ${styles.viewActive}`
+                : styles.calendarViewButton
             }
             onClick={() => setView("calendar")}
           >
@@ -671,8 +693,9 @@ export function CalendarPage() {
             className={
               view === "agenda"
                 ? styles.viewActive
-                : ""
+                : undefined
             }
+            
             onClick={() => setView("agenda")}
           >
             Agenda

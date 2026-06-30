@@ -7,11 +7,16 @@ import {
 } from "react";
 
 import { Badge } from "../../components/Badge";
+import {
+  PlanningMobile,
+  type ScenarioForm,
+} from "../../components/PlanningMobile";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { Input } from "../../components/Input";
 import { Modal } from "../../components/Modal";
 import { PageState } from "../../components/PageState";
+import { PageSkeleton } from "../../components/PageSkeleton";
 import { ApiError } from "../../services/api";
 import { planningService } from "../../services/planningService";
 import { transactionService } from "../../services/transactionService";
@@ -32,7 +37,9 @@ import {
   formatCurrency,
   parseCurrencyInput,
 } from "../../utils/currency";
-import { PageSkeleton } from "../../components/PageSkeleton";
+import {
+  useMediaQuery,
+} from "../../hooks/useMediaQuery";
 
 import styles from "./styles.module.css";
 
@@ -41,17 +48,6 @@ const BALANCE_STORAGE_KEY = (
   "prumo-planning-initial-balance"
 );
 
-
-type ScenarioForm = {
-  description: string;
-  notes: string;
-  transactionType: TransactionType;
-  groupType: GroupType;
-  amountInput: string;
-  occurrenceCount: string;
-  startDate: string;
-  isActive: boolean;
-};
 
 
 function today(): string {
@@ -126,6 +122,11 @@ export function PlanningPage() {
   const [actionId, setActionId] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [formError, setFormError] = useState("");
+
+  const isMobile =
+    useMediaQuery(
+      "(max-width: 720px)",
+    );
 
 
   const loadData = useCallback(async () => {
@@ -445,7 +446,7 @@ export function PlanningPage() {
         cards={4}
         rows={6}
       />
-    );  
+    );
   }
 
 
@@ -464,6 +465,68 @@ export function PlanningPage() {
 
 
   const verdict = verdictContent[summary.verdict];
+
+  if (isMobile) {
+    return (
+      <PlanningMobile
+        horizon={horizon}
+        initialBalance={
+          initialBalance
+        }
+        summary={summary}
+        projection={projection}
+        scenarios={scenarios}
+        selectedScenarioId={
+          selectedScenarioId
+        }
+        selectedScenario={
+          selectedScenario
+        }
+        selectedScenarioProjection={
+          selectedScenarioProjection
+        }
+        actionId={actionId}
+        isModalOpen={
+          isModalOpen
+        }
+        isSaving={isSaving}
+        form={form}
+        editingScenario={
+          editingScenario
+        }
+        formError={formError}
+        setHorizon={setHorizon}
+        setInitialBalance={
+          setInitialBalance
+        }
+        setSelectedScenarioId={
+          setSelectedScenarioId
+        }
+        setIsModalOpen={
+          setIsModalOpen
+        }
+        setForm={setForm}
+        openCreateModal={
+          openCreateModal
+        }
+        openEditModal={
+          openEditModal
+        }
+        toggleScenario={
+          toggleScenario
+        }
+        removeScenario={
+          removeScenario
+        }
+        changeGroupType={
+          changeGroupType
+        }
+        submitScenario={
+          submitScenario
+        }
+      />
+    );
+  }
 
   return (
     <div className={styles.page}>

@@ -1,91 +1,214 @@
-import { useLocation } from "react-router";
+import {
+  useLocation,
+  useNavigate,
+} from "react-router";
 
+import { useAuth } from "../../contexts/AuthContext";
+import {
+  useTheme,
+} from "../../contexts/ThemeContext";
+import {
+  getUserDisplayName,
+  getUserInitials,
+} from "../../utils/userPresentation";
 import { Button } from "../Button";
-import { useTheme } from "../../contexts/ThemeContext";
-import { NotificationBell } from "../NotificationBell";
+import {
+  NotificationBell,
+} from "../NotificationBell";
 
 import styles from "./styles.module.css";
+
 
 type AppHeaderProps = {
   onOpenNavigation: () => void;
 };
 
-const routeTitles: Record<string, string> = {
-  "/home": "Home",
-  "/calendar": "Calendário",
-  "/transactions": "Movimentações",
-  "/closings": "Fechamentos",
-  "/accounts": "Contas",
-  "/categories": "Categorias",
-  "/lume": "Lume",
-  "/settings": "Configurações",
-  "/admin/users": "Administração",
-  "/notifications": "Notificações",
-  "/settings/profile": "Perfil",
-"/settings/preferences": "Preferências",
-"/settings/security": "Segurança",
-"/settings/appearance": "Aparência",
-};
 
-function getPageTitle(pathname: string): string {
-  const exactTitle = routeTitles[pathname];
+const routeTitles:
+  Record<string, string> = {
+    "/home": "Home",
+    "/calendar": "Calendário",
+    "/transactions":
+      "Movimentações",
+    "/closings": "Fechamentos",
+    "/accounts": "Contas",
+    "/categories": "Categorias",
+    "/reports": "Relatórios",
+    "/planning": "Planejamento",
+    "/lume": "Lume",
+    "/notifications":
+      "Notificações",
+    "/settings":
+      "Configurações",
+    "/settings/profile":
+      "Perfil",
+    "/settings/preferences":
+      "Preferências",
+    "/settings/security":
+      "Segurança",
+    "/settings/appearance":
+      "Aparência",
+    "/admin/users":
+      "Administração",
+  };
+
+
+function getPageTitle(
+  pathname: string,
+): string {
+  const exactTitle =
+    routeTitles[pathname];
 
   if (exactTitle) {
     return exactTitle;
   }
 
-  const matchingRoute = Object.entries(routeTitles).find(
-    ([route]) => pathname.startsWith(`${route}/`),
-  );
+  const matchingRoute =
+    Object.entries(
+      routeTitles,
+    ).find(
+      ([route]) =>
+        pathname.startsWith(
+          `${route}/`,
+        ),
+    );
 
-  return matchingRoute?.[1] ?? "Prumo";
+  return (
+    matchingRoute?.[1]
+    ?? "Prumo"
+  );
 }
+
 
 export function AppHeader({
   onOpenNavigation,
 }: AppHeaderProps) {
-  const location = useLocation();
-  const { resolvedTheme, setTheme } = useTheme();
+  const location =
+    useLocation();
+  const navigate =
+    useNavigate();
 
-  const title = getPageTitle(location.pathname);
+  const { user } = useAuth();
+
+  const {
+    resolvedTheme,
+    setTheme,
+  } = useTheme();
+
+  const title = getPageTitle(
+    location.pathname,
+  );
+
+  const userName =
+    getUserDisplayName(user);
+
+  const initials =
+    getUserInitials(
+      user?.name,
+    );
+
 
   function toggleTheme() {
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    setTheme(
+      resolvedTheme === "dark"
+        ? "light"
+        : "dark",
+    );
   }
 
-  return (
-    <header className={styles.header}>
-      <button
-        type="button"
-        className={styles.mobileMenuButton}
-        onClick={onOpenNavigation}
-        aria-label="Abrir navegação"
-      >
-        ☰
-      </button>
 
-      <div className={styles.titleArea}>
-        <span className={styles.mobileBrand}>Prumo</span>
-        <strong>{title}</strong>
+  return (
+    <header
+      className={styles.header}
+    >
+      <div
+        className={
+          styles.leftArea
+        }
+      >
+        <button
+          type="button"
+          className={
+            styles.mobileMenuButton
+          }
+          onClick={
+            onOpenNavigation
+          }
+          aria-label="Abrir menu principal"
+          aria-haspopup="dialog"
+        >
+          <span aria-hidden="true">
+            ☰
+          </span>
+        </button>
+
+        <div
+          className={
+            styles.titleArea
+          }
+        >
+          <span
+            className={
+              styles.mobileBrand
+            }
+          >
+            Prumo
+          </span>
+
+          <strong>{title}</strong>
+        </div>
       </div>
 
-      <div className={styles.actions}>
+      <div
+        className={styles.actions}
+      >
         <NotificationBell />
+
         <Button
           variant="secondary"
           size="small"
           onClick={toggleTheme}
         >
-          {resolvedTheme === "dark" ? "Claro" : "Escuro"}
+          <span
+            className={
+              styles.themeFullLabel
+            }
+          >
+            {resolvedTheme
+            === "dark"
+              ? "Claro"
+              : "Escuro"}
+          </span>
+
+          <span
+            className={
+              styles.themeShortLabel
+            }
+            aria-hidden="true"
+          >
+            {resolvedTheme
+            === "dark"
+              ? "☀"
+              : "◐"}
+          </span>
         </Button>
 
         <button
           type="button"
-          className={styles.profileButton}
-          aria-label="Abrir menu do perfil"
-          
+          className={
+            styles.profileButton
+          }
+          aria-label={
+            `Abrir perfil de ${userName}`
+          }
+          title={userName}
+          onClick={() =>
+            navigate(
+              "/settings/profile",
+            )
+          }
         >
-          JB
+          {initials}
         </button>
       </div>
     </header>

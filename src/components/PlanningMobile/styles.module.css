@@ -1,0 +1,523 @@
+.page {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.header h1,
+.header p {
+  margin: 0;
+}
+
+.header h1 {
+  margin-top: 0.15rem;
+  font-size: 1.8rem;
+}
+
+.header p {
+  margin-top: var(--space-1);
+  color:
+    var(--color-text-secondary);
+  font-size: 0.75rem;
+}
+
+.eyebrow {
+  color: var(--color-brand);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+  gap: var(--space-2);
+}
+
+.controls label {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.controls span,
+.field > span {
+  color:
+    var(--color-text-secondary);
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+.controls select,
+.controls input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0 var(--space-3);
+  color:
+    var(--color-text-primary);
+  background:
+    var(--color-surface);
+  border:
+    1px solid var(--color-border);
+  border-radius:
+    var(--radius-md);
+}
+
+.tabs {
+  position: sticky;
+  z-index: 8;
+  top: 4rem;
+  display: grid;
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+  padding: 0.25rem;
+  background:
+    color-mix(
+      in srgb,
+      var(--color-surface) 94%,
+      transparent
+    );
+  border:
+    1px solid var(--color-border);
+  border-radius:
+    var(--radius-lg);
+  backdrop-filter: blur(12px);
+}
+
+.tabs button {
+  display: flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-2);
+  color:
+    var(--color-text-secondary);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.tabs button > span {
+  display: grid;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  place-items: center;
+  color: #fff;
+  background:
+    var(--color-text-secondary);
+  border-radius: 50%;
+  font-size: 0.6rem;
+}
+
+.tabs .tabActive {
+  color: #fff;
+  background:
+    var(--color-brand);
+}
+
+.tabs .tabActive > span {
+  color: var(--color-brand);
+  background: #fff;
+}
+
+.section {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+  gap: var(--space-2);
+}
+
+.metrics article {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+  min-height: 7.5rem;
+  padding: var(--space-3);
+  background:
+    var(--color-surface);
+  border:
+    1px solid var(--color-border);
+  border-radius:
+    var(--radius-lg);
+}
+
+.metrics article > span,
+.metrics article > small {
+  color:
+    var(--color-text-secondary);
+  font-size: 0.6875rem;
+}
+
+.metrics article > strong {
+  overflow-wrap: anywhere;
+  font-size: 1rem;
+}
+
+.metrics article > :global(span[class*="badge"]) {
+  justify-self: start;
+}
+
+.positive {
+  color: var(--color-positive);
+}
+
+.negative {
+  color: var(--color-negative);
+}
+
+.timeline {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.timeline article {
+  display: grid;
+  gap: var(--space-2);
+  padding-bottom: var(--space-4);
+  border-bottom:
+    1px solid var(--color-border);
+}
+
+.timeline article:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.timeline header,
+.scenarioMain header,
+.monthCards header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.timeline header span {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.timelineValues {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  color:
+    var(--color-text-secondary);
+  font-size: 0.7rem;
+}
+
+.track {
+  height: 0.5rem;
+  overflow: hidden;
+  background:
+    var(--color-surface-soft);
+  border-radius:
+    var(--radius-pill);
+}
+
+.trackPositive,
+.trackNegative {
+  height: 100%;
+  border-radius:
+    var(--radius-pill);
+}
+
+.trackPositive {
+  background:
+    var(--color-positive);
+}
+
+.trackNegative {
+  background:
+    var(--color-negative);
+}
+
+.scenarioList {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.scenario {
+  overflow: hidden;
+  background:
+    var(--color-surface);
+  border:
+    1px solid var(--color-border);
+  border-radius:
+    var(--radius-lg);
+}
+
+.scenarioSelected {
+  border-color:
+    var(--color-brand);
+  box-shadow:
+    0 0 0 2px
+    var(--color-brand-soft);
+}
+
+.scenarioMain {
+  display: grid;
+  width: 100%;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  color: inherit;
+  text-align: left;
+  background: transparent;
+  border: 0;
+}
+
+.scenarioMain header
+> div {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-1);
+}
+
+.scenarioMain header
+> div strong,
+.scenarioMain header
+> div span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scenarioMain header
+> div span {
+  color:
+    var(--color-text-secondary);
+  font-size: 0.7rem;
+}
+
+.scenarioValue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.scenarioValue > span {
+  color:
+    var(--color-text-secondary);
+  font-size: 0.7rem;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background:
+    var(--color-surface-soft);
+  border-top:
+    1px solid var(--color-border);
+}
+
+.actions button {
+  width: 100%;
+  min-width: 0;
+}
+
+.analysis {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.analysis > :first-child {
+  justify-self: start;
+}
+
+.analysis dl {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.analysis dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background:
+    var(--color-surface-soft);
+  border-radius:
+    var(--radius-md);
+}
+
+.analysis dt {
+  color:
+    var(--color-text-secondary);
+  font-size: 0.7rem;
+}
+
+.analysis dd {
+  margin: 0;
+  text-align: right;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.monthCards {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.monthCards > article {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background:
+    var(--color-surface);
+  border:
+    1px solid var(--color-border);
+  border-radius:
+    var(--radius-lg);
+}
+
+.monthCards header span {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.monthCards dl {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.monthCards dl > div {
+  display: grid;
+  gap: 0.15rem;
+  padding: var(--space-2);
+  background:
+    var(--color-surface-soft);
+  border-radius:
+    var(--radius-md);
+}
+
+.monthCards dt {
+  color:
+    var(--color-text-secondary);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+}
+
+.monthCards dd {
+  overflow-wrap: anywhere;
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.formError {
+  padding: var(--space-3);
+  color: var(--color-negative);
+  background:
+    var(--color-negative-soft);
+  border-radius:
+    var(--radius-md);
+}
+
+.twoColumns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.field textarea {
+  min-height: 5rem;
+  padding: var(--space-3);
+  resize: vertical;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.checkbox input {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color:
+    var(--color-brand);
+}
+
+.formActions {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+  gap: var(--space-2);
+}
+
+.formActions button {
+  width: 100%;
+}
+
+@media (max-width: 380px) {
+  .controls,
+  .metrics,
+  .monthCards dl,
+  .actions {
+    grid-template-columns: 1fr;
+  }
+
+  .timelineValues,
+  .scenarioValue,
+  .analysis dl > div {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .analysis dd {
+    text-align: left;
+  }
+}

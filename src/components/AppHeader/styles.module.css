@@ -1,86 +1,142 @@
 .header {
-    position: sticky;
-    z-index: 20;
-    top: 0;
-    display: flex;
-    min-height: 4.5rem;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-    padding: 0 var(--space-8);
-    background: color-mix(
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: flex;
+  min-height: 4.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: 0 var(--space-8);
+  background:
+    color-mix(
       in srgb,
       var(--color-bg) 88%,
       transparent
     );
-    border-bottom: 1px solid var(--color-border);
-    backdrop-filter: blur(16px);
+  border-bottom:
+    1px solid
+    var(--color-border);
+  backdrop-filter:
+    blur(16px);
+}
+
+.leftArea,
+.titleArea,
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.leftArea,
+.titleArea {
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.titleArea strong {
+  overflow: hidden;
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobileBrand,
+.mobileMenuButton,
+.themeShortLabel {
+  display: none;
+}
+
+.actions {
+  flex: 0 0 auto;
+  gap: var(--space-3);
+}
+
+.profileButton {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  place-items: center;
+  color:
+    var(--color-text-primary);
+  background:
+    var(--color-brand-soft);
+  border: 0;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.profileButton:hover {
+  color: #fff;
+  background:
+    var(--color-brand);
+}
+
+@media (max-width: 1024px) {
+  .header {
+    padding:
+      0 var(--space-6);
   }
-  
-  .titleArea {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-  }
-  
-  .titleArea strong {
-    font-size: 1rem;
-  }
-  
-  .mobileBrand,
+
   .mobileMenuButton {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex: 0 0 auto;
+    place-items: center;
+    color:
+      var(--color-text-primary);
+    background:
+      var(--color-surface-soft);
+    border:
+      1px solid
+      var(--color-border);
+    border-radius:
+      var(--radius-md);
+    font-size: 1.2rem;
+  }
+
+  .mobileBrand {
+    display: inline;
+    color:
+      var(--color-brand);
+    font-weight: 800;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    min-height: 4rem;
+    padding:
+      0 var(--space-3);
+  }
+
+  .titleArea {
+    gap: var(--space-2);
+  }
+
+  .titleArea strong {
     display: none;
   }
-  
+
   .actions {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
+    gap: var(--space-2);
   }
-  
-  .profileButton {
-    display: grid;
-    width: 2.5rem;
-    height: 2.5rem;
-    place-items: center;
-    color: var(--color-text-primary);
-    background: var(--color-brand-soft);
-    border: 0;
-    border-radius: 50%;
-    font-size: 0.75rem;
-    font-weight: 700;
+
+  .themeFullLabel {
+    display: none;
   }
-  
-  @media (max-width: 1024px) {
-    .header {
-      padding: 0 var(--space-6);
-    }
-  
-    .mobileMenuButton {
-      display: grid;
-      width: 2.5rem;
-      height: 2.5rem;
-      place-items: center;
-      color: var(--color-text-primary);
-      background: transparent;
-      border: 0;
-      border-radius: var(--radius-md);
-    }
-  
-    .mobileBrand {
-      display: inline;
-      color: var(--color-brand);
-      font-weight: 700;
-    }
+
+  .themeShortLabel {
+    display: inline;
+    font-size: 1rem;
   }
-  
-  @media (max-width: 640px) {
-    .header {
-      min-height: 4rem;
-      padding: 0 var(--space-4);
-    }
-  
-    .titleArea strong {
-      display: none;
-    }
+}
+
+@media (max-width: 390px) {
+  .mobileBrand {
+    display: none;
   }
+}

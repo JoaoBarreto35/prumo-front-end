@@ -406,3 +406,63 @@
     grid-template-columns: 1fr;
   }
 }
+@media (max-width: 760px) {
+  .calendarViewButton {
+    display: none;
+  }
+
+  .viewSwitch {
+    grid-template-columns: 1fr;
+  }
+
+  .calendarScroll {
+    overflow: visible;
+  }
+
+  .agendaList {
+    gap: var(--space-3);
+  }
+
+  .agendaItem {
+    padding: var(--space-4);
+    background:
+      var(--color-surface-soft);
+    border:
+      1px solid
+      var(--color-border);
+    border-radius:
+      var(--radius-lg);
+  }
+
+  .agendaItem,
+  .agendaItem:hover,
+  .agendaItemActive {
+    padding-inline:
+      var(--space-4);
+  }
+
+  .monthNavigation
+  > strong {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .controls {
+    gap: var(--space-3);
+  }
+}
+
+@media (max-width: 420px) {
+  .monthNavigation {
+    display: grid;
+    grid-template-columns:
+      auto minmax(0, 1fr)
+      auto;
+  }
+
+  .monthNavigation
+  > button:last-child {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
