@@ -25,7 +25,7 @@ import { TransactionDetailsPage } from '../pages/TransactionDetails';
 import { CalendarPage } from '../pages/Calendar';
 import { PlanningPage } from "../pages/Planning";
 import { ReportsPage } from "../pages/Reports";
-
+import { LumePage } from "../pages/Lume";
 
 
 const routes: RouteObject[] = [
@@ -142,12 +142,7 @@ const routes: RouteObject[] = [
           },
           {
             path: "/lume",
-            element: (
-              <PlaceholderPage
-                title="Lume"
-                description="Converse com seu assistente financeiro."
-              />
-            ),
+            element: <LumePage />,
           },
           {
             path: "/settings",

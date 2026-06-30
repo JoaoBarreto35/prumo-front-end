@@ -25,6 +25,7 @@ import type {
 } from "../../types/transactions";
 import { formatCurrency } from "../../utils/currency";
 import { PlanningPreview } from "../../components/PlanningPreview";
+import { LumeHomeCard } from "../../components/LumeHomeCard";
 
 import styles from "./styles.module.css";
 
@@ -805,11 +806,6 @@ export function HomePage() {
         </section>
       ) : null}
 
-      <section
-        className={
-          styles.contentGrid
-        }
-      >
         <Card
           title="Despesas do mês"
           description="Veja onde o dinheiro está concentrado."
@@ -916,7 +912,13 @@ export function HomePage() {
             </div>
           )}
         </Card>
-
+      <section
+        className={
+          styles.contentGrid
+        }
+      >
+        
+        <LumeHomeCard />                 
         <Card
           title="Próximos 7 dias"
           description="Compromissos pendentes que estão chegando."
@@ -1015,6 +1017,7 @@ export function HomePage() {
           ) : null}
         </Card>
       </section>
+
       <PlanningPreview />
       <Card
         title="Movimentações do mês"

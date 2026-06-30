@@ -1,0 +1,101 @@
+.wrapper {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.icon {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  color: var(--color-brand);
+  background:
+    var(--color-brand-soft);
+  border-radius: 50%;
+  font-size: 1.25rem;
+}
+
+.identity h2 {
+  margin: var(--space-1) 0 0;
+  font-size: 1.125rem;
+}
+
+.eyebrow {
+  color: var(--color-brand);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.insight,
+.loading {
+  margin: 0;
+  color:
+    var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+  gap: var(--space-3);
+}
+
+.metrics > div {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  background:
+    var(--color-surface-soft);
+  border-radius: var(--radius-md);
+}
+
+.metrics span {
+  color:
+    var(--color-text-secondary);
+  font-size: 0.6875rem;
+}
+
+.metrics strong {
+  font-size: 0.9375rem;
+}
+
+.danger {
+  color: var(--color-negative);
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.suggestions button {
+  padding:
+    var(--space-2)
+    var(--space-3);
+  color: var(--color-brand);
+  background:
+    var(--color-brand-soft);
+  border: 0;
+  border-radius:
+    var(--radius-pill);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 560px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+}

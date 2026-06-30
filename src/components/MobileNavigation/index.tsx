@@ -13,6 +13,11 @@ const navigationItems = [
   },
   { label: "Planejar", to: "/planning", icon: "↗" },
   { label: "Movimentos", to: "/transactions", icon: "⇄" },
+  {
+    label: "Lume",
+    to: "/lume",
+    icon: "✦",
+  },
   { label: "Mais", to: "/settings", icon: "•••" },
 ];
 
