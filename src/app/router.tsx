@@ -31,6 +31,12 @@ import { SettingsPage } from "../pages/Settings";
 import { ChangeTemporaryPasswordPage } from "../pages/ChangeTemporaryPassword";
 import { ClosingsPage } from "../pages/Closings";
 import { AdminUsersPage } from "../pages/AdminUsers";
+import {
+  OnboardingGate,
+} from "../components/OnboardingGate";
+import {
+  OnboardingPage,
+} from "../pages/Onboarding";
 
 
 const routes: RouteObject[] = [
@@ -96,6 +102,10 @@ const routes: RouteObject[] = [
       {
         path: "/change-temporary-password",
         element: <ChangeTemporaryPasswordPage />,
+      },
+      {
+        path: "/onboarding",
+        element: <OnboardingPage />,
       },
       {
         element: <AppLayout />,

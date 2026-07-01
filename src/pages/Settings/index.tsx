@@ -29,6 +29,12 @@ import type {
   UserPreferences,
   UserSession,
 } from "../../types/settings";
+import {
+  useNavigate,
+} from "react-router";
+import {
+  onboardingService,
+} from "../../services/onboardingService";
 
 import styles from "./styles.module.css";
 
@@ -42,11 +48,11 @@ type SettingsSection =
 
 const defaultPreferences:
   UserPreferences = {
-    theme: "system",
-    density: "comfortable",
-    reduce_motion: false,
-    default_page: "/home",
-  };
+  theme: "system",
+  density: "comfortable",
+  reduce_motion: false,
+  default_page: "/home",
+};
 
 
 const pageOptions: Array<{
@@ -54,37 +60,37 @@ const pageOptions: Array<{
   label: string;
   description: string;
 }> = [
-  {
-    value: "/home",
-    label: "Home",
-    description:
-      "Resumo financeiro e ações rápidas.",
-  },
-  {
-    value: "/calendar",
-    label: "Calendário",
-    description:
-      "Prazos organizados por data.",
-  },
-  {
-    value: "/transactions",
-    label: "Movimentações",
-    description:
-      "Histórico e filtros completos.",
-  },
-  {
-    value: "/planning",
-    label: "Planejamento",
-    description:
-      "Projeções e cenários futuros.",
-  },
-  {
-    value: "/reports",
-    label: "Relatórios",
-    description:
-      "Gráficos e análises financeiras.",
-  },
-];
+    {
+      value: "/home",
+      label: "Home",
+      description:
+        "Resumo financeiro e ações rápidas.",
+    },
+    {
+      value: "/calendar",
+      label: "Calendário",
+      description:
+        "Prazos organizados por data.",
+    },
+    {
+      value: "/transactions",
+      label: "Movimentações",
+      description:
+        "Histórico e filtros completos.",
+    },
+    {
+      value: "/planning",
+      label: "Planejamento",
+      description:
+        "Projeções e cenários futuros.",
+    },
+    {
+      value: "/reports",
+      label: "Relatórios",
+      description:
+        "Gráficos e análises financeiras.",
+    },
+  ];
 
 
 function getSection(
@@ -149,6 +155,7 @@ function initials(
 
 
 export function SettingsPage() {
+  const navigate = useNavigate();
   const location = useLocation();
   const section = getSection(
     location.pathname,
@@ -601,6 +608,36 @@ export function SettingsPage() {
             </div>
           </dl>
         </Card>
+        <Card
+          title="Configuração inicial"
+          description="Revise contas, categorias, renda e despesas fixas."
+        >
+          <div>
+            <p>
+              Refazer o onboarding não apaga
+              dados existentes. As etapas já
+              criadas aparecem como concluídas.
+            </p>
+
+            <Button
+              variant="secondary"
+              onClick={async () => {
+                await onboardingService
+                  .restart();
+
+                navigate(
+                  "/onboarding",
+                  {
+                    replace: true,
+                  },
+                );
+              }}
+            >
+              Refazer onboarding
+            </Button>
+          </div>
+        </Card>
+
       </div>
     );
   }
@@ -629,7 +666,7 @@ export function SettingsPage() {
                     styles.choice,
                     preferences
                       .default_page
-                    === option.value
+                      === option.value
                       ? styles.choiceActive
                       : "",
                   ]
@@ -976,44 +1013,44 @@ export function SettingsPage() {
       label: string;
       description: string;
     }> = [
-      {
-        value: "light",
-        label: "Claro",
-        description:
-          "Sempre usar o tema claro.",
-      },
-      {
-        value: "dark",
-        label: "Escuro",
-        description:
-          "Sempre usar o tema escuro.",
-      },
-      {
-        value: "system",
-        label: "Sistema",
-        description:
-          "Acompanhar o dispositivo.",
-      },
-    ];
+        {
+          value: "light",
+          label: "Claro",
+          description:
+            "Sempre usar o tema claro.",
+        },
+        {
+          value: "dark",
+          label: "Escuro",
+          description:
+            "Sempre usar o tema escuro.",
+        },
+        {
+          value: "system",
+          label: "Sistema",
+          description:
+            "Acompanhar o dispositivo.",
+        },
+      ];
 
     const densities: Array<{
       value: DensityPreference;
       label: string;
       description: string;
     }> = [
-      {
-        value: "comfortable",
-        label: "Confortável",
-        description:
-          "Mais espaço entre elementos.",
-      },
-      {
-        value: "compact",
-        label: "Compacta",
-        description:
-          "Mais informações na tela.",
-      },
-    ];
+        {
+          value: "comfortable",
+          label: "Confortável",
+          description:
+            "Mais espaço entre elementos.",
+        },
+        {
+          value: "compact",
+          label: "Compacta",
+          description:
+            "Mais informações na tela.",
+        },
+      ];
 
     return (
       <div className={styles.stack}>
@@ -1037,7 +1074,7 @@ export function SettingsPage() {
                   className={[
                     styles.visualChoice,
                     theme
-                    === option.value
+                      === option.value
                       ? styles.choiceActive
                       : "",
                   ]
@@ -1053,9 +1090,9 @@ export function SettingsPage() {
                     className={[
                       styles.themePreview,
                       styles[
-                        `preview${option.value
-                          .charAt(0)
-                          .toUpperCase()}${option.value
+                      `preview${option.value
+                        .charAt(0)
+                        .toUpperCase()}${option.value
                           .slice(1)}`
                       ],
                     ].join(" ")}
@@ -1093,7 +1130,7 @@ export function SettingsPage() {
                   className={[
                     styles.choice,
                     preferences.density
-                    === option.value
+                      === option.value
                       ? styles.choiceActive
                       : "",
                   ]
@@ -1209,31 +1246,31 @@ export function SettingsPage() {
         description: string;
       }
     > = {
-      profile: {
-        eyebrow: "Sua conta",
-        title: "Perfil",
-        description:
-          "Gerencie suas informações pessoais.",
-      },
-      preferences: {
-        eyebrow: "Comportamento",
-        title: "Preferências",
-        description:
-          "Ajuste como o Prumo funciona para você.",
-      },
-      security: {
-        eyebrow: "Proteção",
-        title: "Segurança",
-        description:
-          "Controle senha e dispositivos conectados.",
-      },
-      appearance: {
-        eyebrow: "Personalização",
-        title: "Aparência",
-        description:
-          "Escolha como o Prumo deve se apresentar.",
-      },
-    };
+    profile: {
+      eyebrow: "Sua conta",
+      title: "Perfil",
+      description:
+        "Gerencie suas informações pessoais.",
+    },
+    preferences: {
+      eyebrow: "Comportamento",
+      title: "Preferências",
+      description:
+        "Ajuste como o Prumo funciona para você.",
+    },
+    security: {
+      eyebrow: "Proteção",
+      title: "Segurança",
+      description:
+        "Controle senha e dispositivos conectados.",
+    },
+    appearance: {
+      eyebrow: "Personalização",
+      title: "Aparência",
+      description:
+        "Escolha como o Prumo deve se apresentar.",
+    },
+  };
 
   const heading = titles[section];
 

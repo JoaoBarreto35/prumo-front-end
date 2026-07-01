@@ -1,0 +1,48 @@
+.page {
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  padding: var(--space-5);
+  background:
+    var(--color-bg);
+}
+
+.page section {
+  display: grid;
+  width: min(100%, 28rem);
+  gap: var(--space-3);
+  padding: var(--space-6);
+  text-align: center;
+  background:
+    var(--color-surface);
+  border:
+    1px solid
+    var(--color-border);
+  border-radius:
+    var(--radius-xl);
+  box-shadow:
+    var(--shadow-lg);
+}
+
+.page strong {
+  font-size: 1.25rem;
+}
+
+.page p {
+  margin: 0;
+  color:
+    var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.page button {
+  min-height: 2.75rem;
+  color: #fff;
+  background:
+    var(--color-brand);
+  border: 0;
+  border-radius:
+    var(--radius-md);
+  font: inherit;
+  font-weight: 800;
+}
