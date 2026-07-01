@@ -1,0 +1,30 @@
+.page {
+  display: grid;
+  min-height: 17rem;
+  place-content: center;
+  place-items: center;
+  /* gap: var(--space-4); */
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+}
+
+.orb {
+  display: grid;
+  width: 1.5rem;
+  height: 1.5rem;
+  place-items: center;
+  color: var(--color-brand);
+  /* background: var(--color-brand); */
+  border-radius: 50%;
+  /* box-shadow: var(--shadow-lume); */
+  text-shadow: 4px 4px 5px var(--shadow-lume);
+  font-size: 1.5rem;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.20);
+    opacity: 0.8;
+  }
+}

@@ -9,6 +9,8 @@ import { useNavigate } from "react-router";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { PageState } from "../../components/PageState";
+import { LumeIconLoader } from "../../components/LumeIconLoader";
+
 import { ApiError } from "../../services/api";
 import {
   dispatchNotificationRefresh,
@@ -537,9 +539,8 @@ export function NotificationsPage() {
           </div>
 
           {isLoading ? (
-            <PageState
+            <LumeIconLoader
               title="Atualizando lembretes"
-              description="Conferindo seus próximos vencimentos."
             />
           ) : notifications.length
           === 0 ? (
@@ -872,9 +873,8 @@ export function NotificationsPage() {
               </Button>
             </div>
           ) : (
-            <PageState
+            <LumeIconLoader
               title="Carregando preferências"
-              description="Preparando suas configurações."
             />
           )}
         </Card>

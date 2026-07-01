@@ -12,6 +12,8 @@ import {
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { PageState } from "../../components/PageState";
+import { LumeIconLoader } from "../../components/LumeIconLoader";
+
 import { SettingsNavigation } from "../../components/SettingsNavigation";
 import { useAuth } from "../../contexts/AuthContext";
 import { useTheme } from "../../contexts/ThemeContext";
@@ -1344,10 +1346,9 @@ export function SettingsPage() {
         <main>
           {isLoading ? (
             <Card>
-              <PageState
-                title="Carregando configurações"
-                description="Preparando suas preferências."
-              />
+              <LumeIconLoader
+              title={`Carregando configurações ${section}`}
+            />
             </Card>
           ) : section === "profile"
             ? renderProfile()

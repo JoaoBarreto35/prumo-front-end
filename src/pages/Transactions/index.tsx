@@ -13,21 +13,18 @@ import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { PageState } from "../../components/PageState";
 import { TransactionTable } from "../../components/TransactionTable";
+import { PageSkeleton } from "../../components/PageSkeleton";
+import { BulkTransactionActions } from "../../components/BulkTransactionActions";
 import { accountService } from "../../services/accountService";
 import { ApiError } from "../../services/api";
 import { transactionService } from "../../services/transactionService";
-import type {
-  Account,
-} from "../../types/finance";
+import type { Account } from "../../types/finance";
 import type {
   GroupType,
   Transaction,
   TransactionStatus,
 } from "../../types/transactions";
-import { PageSkeleton } from "../../components/PageSkeleton";
-import {
-  BulkTransactionActions,
-} from "../../components/BulkTransactionActions";
+
 
 
 import styles from "./styles.module.css";
@@ -263,7 +260,7 @@ export function TransactionsPage() {
             Nova movimentação
           </Button>
         </div>
-        
+
       </header>
 
       {state?.successMessage ? (

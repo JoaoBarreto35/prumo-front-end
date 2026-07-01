@@ -13,6 +13,8 @@ import {
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { PageState } from "../../components/PageState";
+import { LumeIconLoader } from "../../components/LumeIconLoader";
+
 import { ApiError } from "../../services/api";
 import { lumeService } from "../../services/lumeService";
 import type {
@@ -812,10 +814,11 @@ export function LumePage() {
               }
             >
               {isLoading ? (
-                <PageState
-                  title="Carregando conversa"
-                  description="Organizando o histórico do Lume."
-                />
+                <Card>
+                <LumeIconLoader
+                title="Carregando conversas"
+              />
+              </Card>
               ) : messages.length
               === 0 ? (
                 <div
