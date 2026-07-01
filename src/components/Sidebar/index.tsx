@@ -9,6 +9,9 @@ import {
   useAuth,
 } from "../../contexts/AuthContext";
 import {
+  useAppLogout,
+} from "../../hooks/useAppLogout";
+import {
   getUserDisplayName,
   getUserInitials,
   getUserRoleLabel,
@@ -27,7 +30,14 @@ export function Sidebar({
   isCollapsed,
   onToggle,
 }: SidebarProps) {
-  const { user } = useAuth();
+  const {
+    user,
+  } = useAuth();
+
+  const {
+    isLoggingOut,
+    performLogout,
+  } = useAppLogout();
 
   const groups =
     getNavigationGroups(
@@ -78,7 +88,7 @@ export function Sidebar({
           >
             <strong>Prumo</strong>
             <span>
-              Aprumando sua vida <br/>
+              Aprumando sua vida
               financeira.
             </span>
           </div>
@@ -179,36 +189,77 @@ export function Sidebar({
         )}
       </nav>
 
-      <NavLink
-        to="/settings/profile"
+      <footer
         className={
-          styles.userArea
-        }
-        title={
-          isCollapsed
-            ? name
-            : undefined
+          styles.sidebarFooter
         }
       >
-        <div
-          className={styles.avatar}
+        <NavLink
+          to="/settings/profile"
+          className={
+            styles.userArea
+          }
+          title={
+            isCollapsed
+              ? name
+              : undefined
+          }
         >
-          {initials}
-        </div>
-
-        {!isCollapsed ? (
           <div
             className={
-              styles.userDetails
+              styles.avatar
             }
           >
-            <strong>{name}</strong>
-            <span>
-              {roleLabel}
-            </span>
+            {initials}
           </div>
-        ) : null}
-      </NavLink>
+
+          {!isCollapsed ? (
+            <div
+              className={
+                styles.userDetails
+              }
+            >
+              <strong>
+                {name}
+              </strong>
+              <span>
+                {roleLabel}
+              </span>
+            </div>
+          ) : null}
+        </NavLink>
+
+        <button
+          type="button"
+          className={
+            styles.logoutButton
+          }
+          title={
+            isCollapsed
+              ? "Sair da conta"
+              : undefined
+          }
+          aria-label="Sair da conta"
+          disabled={isLoggingOut}
+          onClick={() =>
+            void performLogout()
+          }
+        >
+          <span
+            aria-hidden="true"
+          >
+            ⇥
+          </span>
+
+          {!isCollapsed ? (
+            <span>
+              {isLoggingOut
+                ? "Saindo..."
+                : "Sair da conta"}
+            </span>
+          ) : null}
+        </button>
+      </footer>
     </aside>
   );
 }

@@ -37,6 +37,9 @@ import {
 import {
   OnboardingPage,
 } from "../pages/Onboarding";
+import {
+  DataSettingsPage,
+} from "../pages/DataSettings";
 
 
 const routes: RouteObject[] = [
@@ -182,6 +185,11 @@ const routes: RouteObject[] = [
             path: "/settings/appearance",
             element: <SettingsPage />,
           },
+          {
+            path: "/settings/data",
+            element: <DataSettingsPage />,
+          },
+          
           
           {
             element: <AdminRoute />,

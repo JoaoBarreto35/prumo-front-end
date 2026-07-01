@@ -1,0 +1,182 @@
+.container {
+  position: relative;
+}
+
+.trigger,
+.avatar {
+  display: grid;
+  place-items: center;
+  color:
+    var(--color-text-primary);
+  background:
+    var(--color-brand-soft);
+  border-radius: 50%;
+  font-weight: 800;
+}
+
+.trigger {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  font-size: 0.75rem;
+}
+
+.trigger:hover,
+.trigger[aria-expanded="true"] {
+  color: #fff;
+  background:
+    var(--color-brand);
+}
+
+.menu {
+  position: absolute;
+  z-index: 80;
+  top:
+    calc(100% + var(--space-2));
+  right: 0;
+  display: grid;
+  width: min(
+    20rem,
+    calc(100vw - 1.5rem)
+  );
+  overflow: hidden;
+  color:
+    var(--color-text-primary);
+  background:
+    var(--color-surface);
+  border:
+    1px solid
+    var(--color-border);
+  border-radius:
+    var(--radius-lg);
+  box-shadow:
+    var(--shadow-lg);
+  transform-origin:
+    top right;
+  animation:
+    menu-enter
+    140ms ease-out;
+}
+
+.identity {
+  display: grid;
+  grid-template-columns:
+    auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background:
+    var(--color-surface-soft);
+  border-bottom:
+    1px solid
+    var(--color-border);
+}
+
+.avatar {
+  width: 2.75rem;
+  height: 2.75rem;
+  color:
+    var(--color-brand);
+  font-size: 0.75rem;
+}
+
+.identity > span:last-child {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-1);
+}
+
+.identity strong,
+.identity small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.identity small {
+  color:
+    var(--color-text-secondary);
+  font-size: 0.6875rem;
+}
+
+.links {
+  display: grid;
+  padding: var(--space-2);
+}
+
+.links a,
+.logout {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: var(--space-3);
+  padding:
+    0 var(--space-3);
+  color:
+    var(--color-text-primary);
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  border-radius:
+    var(--radius-md);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.links a:hover {
+  background:
+    var(--color-surface-soft);
+}
+
+.links a > span,
+.logout > span {
+  display: grid;
+  width: 1.5rem;
+  place-items: center;
+}
+
+.logout {
+  margin: 0 var(--space-2)
+    var(--space-2);
+  color:
+    var(--color-negative);
+  background:
+    var(--color-negative-soft);
+}
+
+.logout:hover:not(:disabled) {
+  color: #fff;
+  background:
+    var(--color-negative);
+}
+
+.logout:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+@keyframes menu-enter {
+  from {
+    opacity: 0;
+    transform:
+      translateY(-0.35rem)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+  .menu {
+    animation: none;
+  }
+}

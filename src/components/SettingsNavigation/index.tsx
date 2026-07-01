@@ -1,4 +1,6 @@
-import { NavLink } from "react-router";
+import {
+  NavLink,
+} from "react-router";
 
 import styles from "./styles.module.css";
 
@@ -32,50 +34,69 @@ const items = [
       "Tema, densidade e movimento",
     icon: "◐",
   },
+  {
+    to: "/settings/data",
+    label: "Dados e backup",
+    description:
+      "Exportação, importação e privacidade",
+    icon: "⇅",
+  },
 ];
 
 
 export function SettingsNavigation() {
   return (
     <nav
-      className={styles.navigation}
+      className={
+        styles.navigation
+      }
       aria-label="Configurações"
     >
-      {items.map((item) => (
-        <NavLink
-          key={item.to}
-          to={item.to}
-          className={({ isActive }) =>
-            [
-              styles.item,
-              isActive
-                ? styles.active
-                : "",
-            ]
-              .filter(Boolean)
-              .join(" ")
-          }
-        >
-          <span
-            className={styles.icon}
-            aria-hidden="true"
+      {items.map(
+        (item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            className={({
+              isActive,
+            }) =>
+              [
+                styles.item,
+                isActive
+                  ? styles.active
+                  : "",
+              ]
+                .filter(Boolean)
+                .join(" ")
+            }
           >
-            {item.icon}
-          </span>
+            <span
+              className={
+                styles.icon
+              }
+              aria-hidden="true"
+            >
+              {item.icon}
+            </span>
 
-          <span
-            className={styles.text}
-          >
-            <strong>
-              {item.label}
-            </strong>
+            <span
+              className={
+                styles.text
+              }
+            >
+              <strong>
+                {item.label}
+              </strong>
 
-            <small>
-              {item.description}
-            </small>
-          </span>
-        </NavLink>
-      ))}
+              <small>
+                {
+                  item.description
+                }
+              </small>
+            </span>
+          </NavLink>
+        ),
+      )}
     </nav>
   );
 }

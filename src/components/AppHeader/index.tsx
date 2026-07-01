@@ -1,20 +1,17 @@
 import {
   useLocation,
-  useNavigate,
 } from "react-router";
 
-import { useAuth } from "../../contexts/AuthContext";
 import {
   useTheme,
 } from "../../contexts/ThemeContext";
-import {
-  getUserDisplayName,
-  getUserInitials,
-} from "../../utils/userPresentation";
 import { Button } from "../Button";
 import {
   NotificationBell,
 } from "../NotificationBell";
+import {
+  UserMenu,
+} from "../UserMenu";
 
 import styles from "./styles.module.css";
 
@@ -26,31 +23,34 @@ type AppHeaderProps = {
 
 const routeTitles:
   Record<string, string> = {
-    "/home": "Home",
-    "/calendar": "Calendário",
-    "/transactions":
-      "Movimentações",
-    "/closings": "Fechamentos",
-    "/accounts": "Contas",
-    "/categories": "Categorias",
-    "/reports": "Relatórios",
-    "/planning": "Planejamento",
-    "/lume": "Lume",
-    "/notifications":
-      "Notificações",
-    "/settings":
-      "Configurações",
-    "/settings/profile":
-      "Perfil",
-    "/settings/preferences":
-      "Preferências",
-    "/settings/security":
-      "Segurança",
-    "/settings/appearance":
-      "Aparência",
-    "/admin/users":
-      "Administração",
-  };
+  "/home": "Home",
+  "/calendar": "Calendário",
+  "/transactions":
+    "Movimentações",
+  "/closings": "Fechamentos",
+  "/accounts": "Contas",
+  "/categories": "Categorias",
+  "/reports": "Relatórios",
+  "/planning": "Planejamento",
+  "/lume": "Lume",
+  "/notifications":
+    "Notificações",
+  "/settings":
+    "Configurações",
+  "/settings/profile":
+    "Perfil",
+  "/settings/preferences":
+    "Preferências",
+  "/settings/security":
+    "Segurança",
+  "/settings/appearance":
+    "Aparência",
+  "/admin/users":
+    "Administração",
+  "/settings/data":
+    "Dados e backup",
+
+};
 
 
 function getPageTitle(
@@ -85,10 +85,6 @@ export function AppHeader({
 }: AppHeaderProps) {
   const location =
     useLocation();
-  const navigate =
-    useNavigate();
-
-  const { user } = useAuth();
 
   const {
     resolvedTheme,
@@ -98,14 +94,6 @@ export function AppHeader({
   const title = getPageTitle(
     location.pathname,
   );
-
-  const userName =
-    getUserDisplayName(user);
-
-  const initials =
-    getUserInitials(
-      user?.name,
-    );
 
 
   function toggleTheme() {
@@ -175,7 +163,7 @@ export function AppHeader({
             }
           >
             {resolvedTheme
-            === "dark"
+              === "dark"
               ? "Claro"
               : "Escuro"}
           </span>
@@ -187,29 +175,13 @@ export function AppHeader({
             aria-hidden="true"
           >
             {resolvedTheme
-            === "dark"
+              === "dark"
               ? "☀"
               : "◐"}
           </span>
         </Button>
 
-        <button
-          type="button"
-          className={
-            styles.profileButton
-          }
-          aria-label={
-            `Abrir perfil de ${userName}`
-          }
-          title={userName}
-          onClick={() =>
-            navigate(
-              "/settings/profile",
-            )
-          }
-        >
-          {initials}
-        </button>
+        <UserMenu />
       </div>
     </header>
   );
