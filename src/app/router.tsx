@@ -30,6 +30,8 @@ import { NotificationsPage } from "../pages/Notifications";
 import { SettingsPage } from "../pages/Settings";
 import { ChangeTemporaryPasswordPage } from "../pages/ChangeTemporaryPassword";
 import { ClosingsPage } from "../pages/Closings";
+import { AdminUsersPage } from "../pages/AdminUsers";
+
 
 const routes: RouteObject[] = [
   {
@@ -184,13 +186,9 @@ const routes: RouteObject[] = [
                   },
                   {
                     path: "users",
-                    element: (
-                      <PlaceholderPage
-                        title="Usuários"
-                        description="Gerencie solicitações e acessos."
-                      />
-                    ),
+                    element: <AdminUsersPage />,
                   },
+                  
                 ],
               },
             ],

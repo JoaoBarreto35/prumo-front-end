@@ -78,7 +78,7 @@ export function Sidebar({
           >
             <strong>Prumo</strong>
             <span>
-              Aprumando sua vida
+              Aprumando sua vida <br/>
               financeira.
             </span>
           </div>
