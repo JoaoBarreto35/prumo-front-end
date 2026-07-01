@@ -95,14 +95,14 @@ function getSequenceLabel(
     );
   }
 
-  if (
-    transaction.group_type === "recurring"
-  ) {
-    return (
-      `Ocorrência ${transaction.sequence_number}` +
-      ` de ${transaction.total_occurrences}`
-    );
-  }
+  // if (
+  //   transaction.group_type === "recurring"
+  // ) {
+  //   return (
+  //     `Ocorrência ${transaction.sequence_number}` +
+  //     ` de ${transaction.total_occurrences}`
+  //   );
+  // }
 
   return null;
 }
