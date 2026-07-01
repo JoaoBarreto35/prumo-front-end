@@ -25,6 +25,9 @@ import type {
   TransactionStatus,
 } from "../../types/transactions";
 import { PageSkeleton } from "../../components/PageSkeleton";
+import {
+  BulkTransactionActions,
+} from "../../components/BulkTransactionActions";
 
 
 import styles from "./styles.module.css";
@@ -157,17 +160,17 @@ export function TransactionsPage() {
             const matchesStatus =
               statusFilter === "all"
               || transaction.status
-                === statusFilter;
+              === statusFilter;
 
             const matchesAccount =
               accountFilter === "all"
               || transaction.account_id
-                === accountFilter;
+              === accountFilter;
 
             const matchesGroupType =
               groupTypeFilter === "all"
               || transaction.group_type
-                === groupTypeFilter;
+              === groupTypeFilter;
 
             if (!normalizedSearch) {
               return (
@@ -183,7 +186,7 @@ export function TransactionsPage() {
                   transaction.description,
                   transaction.account_name,
                   transaction.category_name
-                    ?? "",
+                  ?? "",
                   transaction.group_type,
                   transaction.amount,
                 ].join(" "),
@@ -242,16 +245,25 @@ export function TransactionsPage() {
             todas as receitas e despesas.
           </p>
         </div>
+        <div className={styles.headerActions}>
+          <BulkTransactionActions
+            transactions={
+              filteredTransactions
+            }
+            onChanged={loadData}
+          />
 
-        <Button
-          onClick={() =>
-            navigate(
-              "/transactions/new",
-            )
-          }
-        >
-          Nova movimentação
-        </Button>
+          <Button
+            onClick={() =>
+              navigate(
+                "/transactions/new",
+              )
+            }
+          >
+            Nova movimentação
+          </Button>
+        </div>
+        
       </header>
 
       {state?.successMessage ? (
@@ -373,7 +385,7 @@ export function TransactionsPage() {
                   type="button"
                   className={
                     statusFilter
-                    === value
+                      === value
                       ? styles.filterActive
                       : ""
                   }
@@ -416,10 +428,10 @@ export function TransactionsPage() {
 
         {isLoading ? (
           <PageSkeleton
-          cards={4}
-          rows={6}
-        />
-    
+            cards={4}
+            rows={6}
+          />
+
         ) : error ? (
           <PageState
             title="Não foi possível carregar"
@@ -431,7 +443,7 @@ export function TransactionsPage() {
           />
         ) : (
           filteredTransactions.length
-          === 0 ? (
+            === 0 ? (
             <PageState
               title="Nenhuma movimentação encontrada"
               description={
@@ -448,9 +460,9 @@ export function TransactionsPage() {
                 hasActiveFilters
                   ? clearFilters
                   : () =>
-                      navigate(
-                        "/transactions/new",
-                      )
+                    navigate(
+                      "/transactions/new",
+                    )
               }
             />
           ) : (

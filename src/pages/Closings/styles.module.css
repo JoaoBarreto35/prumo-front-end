@@ -720,3 +720,14 @@
     grid-template-columns: 1fr;
   }
 }
+.pendingActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 680px) {
+  .pendingActions,
+  .pendingActions button {
+    width: 100%;
+  }
+}

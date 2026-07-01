@@ -31,6 +31,9 @@ import type {
 import {
   formatCurrency,
 } from "../../utils/currency";
+import {
+  BulkTransactionActions,
+} from "../../components/BulkTransactionActions";
 
 import styles from "./styles.module.css";
 
@@ -86,7 +89,7 @@ function addMonths(
     new Date(
       parsed.getFullYear(),
       parsed.getMonth()
-        + amount,
+      + amount,
       1,
       12,
     ),
@@ -131,9 +134,9 @@ function statusContent(
 ): {
   label: string;
   variant:
-    | "positive"
-    | "warning"
-    | "info";
+  | "positive"
+  | "warning"
+  | "info";
 } {
   if (status === "closed") {
     return {
@@ -313,7 +316,7 @@ function MetricsGrid({
             className={
               metrics
                 .projected_result
-              >= 0
+                >= 0
                 ? styles.positive
                 : styles.negative
             }
@@ -332,7 +335,7 @@ function MetricsGrid({
           <strong
             className={
               metrics.actual_result
-              >= 0
+                >= 0
                 ? styles.positive
                 : styles.negative
             }
@@ -406,7 +409,7 @@ function MetricsGrid({
           <strong
             className={
               metrics.overdue_count
-              > 0
+                > 0
                 ? styles.negative
                 : ""
             }
@@ -513,7 +516,7 @@ function TransactionCard({
   onOpen,
 }: {
   item:
-    ClosingTransactionItem;
+  ClosingTransactionItem;
   onOpen: () => void;
 }) {
   const today = new Date();
@@ -550,13 +553,13 @@ function TransactionCard({
         <strong
           className={
             item.transaction_type
-            === "income"
+              === "income"
               ? styles.positive
               : styles.negative
           }
         >
           {item.transaction_type
-          === "income"
+            === "income"
             ? "+ "
             : "− "}
           {formatCurrency(
@@ -686,15 +689,15 @@ export function ClosingsPage() {
 
   const status = summary
     ? statusContent(
-        summary.status,
-      )
+      summary.status,
+    )
     : null;
 
   const hasDrift = useMemo(
     () =>
       Boolean(
         summary
-        ?.closed_snapshot
+          ?.closed_snapshot
         && metricsChanged(
           summary.live.metrics,
           summary
@@ -752,7 +755,7 @@ export function ClosingsPage() {
           .closeMonth(
             month,
             notes.trim()
-              || null,
+            || null,
           );
 
       setSummary(updated);
@@ -839,7 +842,7 @@ export function ClosingsPage() {
           .updateNotes(
             month,
             notes.trim()
-              || null,
+            || null,
           );
 
       setSummary(updated);
@@ -894,7 +897,7 @@ export function ClosingsPage() {
 
   const activeSnapshot =
     summary.status === "closed"
-    && summary.closed_snapshot
+      && summary.closed_snapshot
       ? summary.closed_snapshot
       : summary.live;
 
@@ -932,7 +935,7 @@ export function ClosingsPage() {
           }
         >
           {summary.status
-          === "closed" ? (
+            === "closed" ? (
             <Button
               variant="secondary"
               isLoading={
@@ -1029,7 +1032,7 @@ export function ClosingsPage() {
       </section>
 
       {summary.status
-      === "closed" ? (
+        === "closed" ? (
         <aside
           className={
             hasDrift
@@ -1116,15 +1119,15 @@ export function ClosingsPage() {
             }
             title={
               summary.status
-              === "closed"
+                === "closed"
                 ? "Fotografia oficial"
                 : "Situação do mês"
             }
           />
 
           {summary.status
-          === "closed"
-          && hasDrift ? (
+            === "closed"
+            && hasDrift ? (
             <MetricsGrid
               snapshot={
                 summary.live
@@ -1183,6 +1186,15 @@ export function ClosingsPage() {
             styles.section
           }
         >
+          <div className={styles.pendingActions}>
+              <BulkTransactionActions
+                triggerLabel="Concluir pendências do mês"
+                buttonVariant="primary"
+                initialScope="month"
+                defaultReferenceMonth={month}
+                onChanged={loadData}
+              />
+            </div>
           <section
             className={
               styles.pendingSummary
@@ -1233,6 +1245,7 @@ export function ClosingsPage() {
                 </strong>
               </div>
             </Card>
+            
           </section>
 
           {activeSnapshot
@@ -1248,6 +1261,7 @@ export function ClosingsPage() {
               />
             </Card>
           ) : (
+
             <div
               className={
                 styles.transactionList
@@ -1272,7 +1286,7 @@ export function ClosingsPage() {
       ) : null}
 
       {section
-      === "breakdown" ? (
+        === "breakdown" ? (
         <div
           className={
             styles.breakdownGrid
@@ -1378,11 +1392,11 @@ export function ClosingsPage() {
                           className={
                             item
                               .projected_result
-                            >= 0
+                              >= 0
                               ? styles
-                                  .positive
+                                .positive
                               : styles
-                                  .negative
+                                .negative
                           }
                         >
                           {formatCurrency(
@@ -1398,11 +1412,11 @@ export function ClosingsPage() {
                           className={
                             item
                               .actual_result
-                            >= 0
+                              >= 0
                               ? styles
-                                  .positive
+                                .positive
                               : styles
-                                  .negative
+                                .negative
                           }
                         >
                           {formatCurrency(
@@ -1460,7 +1474,7 @@ export function ClosingsPage() {
                 className={
                   summary.live.metrics
                     .projected_result
-                  >= 0
+                    >= 0
                     ? styles.positive
                     : styles.negative
                 }
@@ -1480,7 +1494,7 @@ export function ClosingsPage() {
                 className={
                   summary.live.metrics
                     .actual_result
-                  >= 0
+                    >= 0
                     ? styles.positive
                     : styles.negative
                 }

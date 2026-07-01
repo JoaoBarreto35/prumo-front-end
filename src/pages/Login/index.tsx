@@ -1,12 +1,12 @@
 import { useState, type FormEvent } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { Input } from "../../components/Input";
 import { useAuth } from "../../contexts/AuthContext";
 import { ApiError } from "../../services/api";
-import { settingsService } from "../../services/settingsService";
+
 
 import styles from "./styles.module.css";
 
@@ -87,9 +87,7 @@ export function LoginPage() {
       }
       
       try {
-        const preferences =
-          await settingsService
-            .getPreferences();
+        
       
         navigate(
           preferences.default_page,

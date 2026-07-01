@@ -196,3 +196,22 @@
     grid-template-columns: 1fr;
   }
 }
+
+.headerActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+@media (max-width: 700px) {
+  .headerActions {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .headerActions button {
+    width: 100%;
+  }
+}
